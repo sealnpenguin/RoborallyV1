@@ -30,7 +30,10 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
  *
  */
 public class Space extends Subject {
-
+    /**
+     * Space indicates the field on the board which a specific player occupies.
+     * Space makes it possible to change the position of a player.
+     */
     public final Board board;
 
     public final int x;
