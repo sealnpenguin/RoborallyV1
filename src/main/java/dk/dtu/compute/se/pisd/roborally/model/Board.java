@@ -37,6 +37,8 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  */
 public class Board extends Subject {
 
+    private int counter = 0;
+
     public final int width;
 
     public final int height;
@@ -198,6 +200,14 @@ public class Board extends Subject {
         }
 
         return getSpace(x, y);
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public void increaseCounter(){
+        this.counter++;
     }
 
     public String getStatusMessage() {
