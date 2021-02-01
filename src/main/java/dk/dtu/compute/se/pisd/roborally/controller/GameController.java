@@ -34,6 +34,7 @@ public class GameController {
 
     final public Board board;
 
+    int counter = 0;
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -47,7 +48,9 @@ public class GameController {
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         Player player = this.board.getCurrentPlayer();
         player.setSpace(space);
-
+        counter++;
+        if(counter == this.board.getPlayersNumber()) counter = 0;
+        this.board.setCurrentPlayer(this.board.getPlayer(counter));
     }
 
     /**
