@@ -33,7 +33,11 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  *
  */
 public class Player extends Subject {
-
+    /**
+     * Player instantiation method, which creates a player with a specific name and color
+     * as well as direction and placing on the board
+     * and a set of cards and registers?
+     */
     final public static int NO_REGISTERS = 5;
     final public static int NO_CARDS = 8;
 
