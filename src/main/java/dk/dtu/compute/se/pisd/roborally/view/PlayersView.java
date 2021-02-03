@@ -29,7 +29,8 @@ import javafx.scene.control.TabPane;
 
 /**
  * ...
- *
+ * Information expert for PlayerView
+ * it extends TabPane to keep track og all the GUI elements in the PlayerView that extends Tab
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

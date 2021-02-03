@@ -34,7 +34,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * The class that keeps track of a single player and updates
+ * the view layer according the the subject
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
