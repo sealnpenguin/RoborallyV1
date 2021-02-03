@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * Handles GUI stuff for the Space class
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
