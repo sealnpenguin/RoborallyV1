@@ -42,7 +42,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ...
+ * AppController is used to start the game and manage
+ * non gameplay related functions, like picking number of players, names etc.
+ *
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -56,6 +58,10 @@ public class AppController implements Observer {
 
     private GameController gameController;
 
+    /**
+     *Constructor of AppController
+     * @param roboRally is our start of the program
+     */
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }

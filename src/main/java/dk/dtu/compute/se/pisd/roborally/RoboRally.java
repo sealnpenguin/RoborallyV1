@@ -51,7 +51,11 @@ public class RoboRally extends Application {
     public void init() throws Exception {
         super.init();
     }
-
+    /**
+    * Implementation of start method from Application.
+     * It is a main entry point for all javafx Applications
+     * @param primaryStage is the primary stage that the scene of the application can be set.
+    * */
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -100,7 +104,10 @@ public class RoboRally extends Application {
         //     is delegated to the exit() method in the AppController,
         //     so that the AppController can take care of that.
     }
-
+    /**
+    * Entry point of all java programs.
+     * Here it simply calls the launch method from javafx Application
+    * */
     public static void main(String[] args) {
         launch(args);
     }
