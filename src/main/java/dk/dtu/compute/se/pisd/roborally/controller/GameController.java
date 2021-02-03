@@ -34,7 +34,6 @@ public class GameController {
 
     final public Board board;
 
-    private int currentPlayerInt = 0;
     public GameController(@NotNull Board board) {
         this.board = board;
     }
