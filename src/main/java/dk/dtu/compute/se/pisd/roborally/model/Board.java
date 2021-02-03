@@ -235,6 +235,20 @@ public class Board extends Subject {
         return "Player = " + getCurrentPlayer().getName() + ", number of moves: " + getCounter();
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        //only updates when it is necessary
+        if (this.count != count) {
+            this.count = count;
+            notifyChange();
+        }
+    }
+
+    private int count;
+
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
     //      state the board (game) contains the number of moves, which then can
     //      be used to extend the status message including the number of
