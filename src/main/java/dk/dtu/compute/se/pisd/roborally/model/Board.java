@@ -36,7 +36,9 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  *
  */
 public class Board extends Subject {
-
+    /**
+     * Board 
+     */
     private int counter = 0;
 
     public final int width;
@@ -221,7 +223,7 @@ public class Board extends Subject {
         //      which is counted up every time a player makes a move; the
         //      status line should show the current player and the number
         //      of the current move!
-        return "Player = " + getCurrentPlayer().getName();
+        return "Player = " + getCurrentPlayer().getName() + ", number of moves: " + getCounter();
     }
 
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
