@@ -58,6 +58,7 @@ public class GameController {
             player.setSpace(space);
             board.increaseCounter();
             this.board.setCurrentPlayer(this.board.getPlayer(board.getCounter() % board.getPlayersNumber()));
+            board.setCount(board.getCount() + 1);
         }
     }
 
