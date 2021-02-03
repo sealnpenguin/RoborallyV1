@@ -35,6 +35,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
 public class Board extends Subject {
     /**
      * Board 
@@ -61,6 +62,14 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    /**
+     * Board constructor. Creates the board object with paremeters width and height.
+     *
+     * spaces: two dimensional array which contains the positions of the fields of the board.
+     * @param width is how many fields/spaces there is on the on the x-axis of the board
+     * @param height is how many fields/spaces there is on the the y-axis of the board
+     * @param boardName the name of the board.
+     */
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -216,7 +225,7 @@ public class Board extends Subject {
         // This is actually a view aspect, but for making the first task easy for
         // the students, this method gives a string representation of the current
         // status of the game
-
+        
         // TODO Assignment V1: this string could eventually be refined
         //      The status line should show more information based on
         //      situation; for now, introduce a counter to the Board,
