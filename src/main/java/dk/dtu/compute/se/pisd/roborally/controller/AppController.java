@@ -27,7 +27,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -42,9 +41,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * AppController is used to start the game and manage
- * non gameplay related functions, like picking number of players, names etc.
- *
+ * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -58,10 +55,6 @@ public class AppController implements Observer {
 
     private GameController gameController;
 
-    /**
-     *Constructor of AppController
-     * @param roboRally is our start of the program
-     */
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
@@ -91,17 +84,21 @@ public class AppController implements Observer {
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
-            board.setCurrentPlayer(board.getPlayer(0));
+
+            // XXX: V2
+            // board.setCurrentPlayer(board.getPlayer(0));
+            gameController.startProgrammingPhase();
+
             roboRally.createBoardView(gameController);
         }
     }
 
     public void saveGame() {
-        // XXX needs to be implememged eventually
+        // XXX needs to be implemented eventually
     }
 
     public void loadGame() {
-        // XXX needs to be implememged eventually
+        // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
             newGame();
