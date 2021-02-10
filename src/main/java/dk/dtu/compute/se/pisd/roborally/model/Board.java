@@ -81,7 +81,8 @@ public class Board extends Subject {
                 spaces[x][y] = space;
             }
         }
-        this.stepModex = false;
+        //Skal denne være der?
+        //this.stepModex = false;
     }
 
     public Board(int width, int height) {
