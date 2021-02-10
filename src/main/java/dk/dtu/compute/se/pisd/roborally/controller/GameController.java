@@ -52,14 +52,14 @@ public class GameController {
         //     following the current player
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
-        Player player = this.board.getCurrentPlayer();
+        /*Player player = this.board.getCurrentPlayer();
         System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
             player.setSpace(space);
             board.increaseCounter();
             this.board.setCurrentPlayer(this.board.getPlayer(board.getCounter() % board.getPlayersNumber()));
             board.setCount(board.getCount() + 1);
-        }
+        }*/
     }
 
     // XXX: V2
@@ -222,29 +222,18 @@ public class GameController {
     // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
         Space current = player.getSpace();
-        player.setHeading(player.getHeading().next());
-        /*
         if (current != null && player.board == current.board) {
-            Space target = board.getNeighbour(current, player.getHeading().next());
-            if(target != null && target.getPlayer() == null){
-                player.setSpace(target);
-            }
+            player.setHeading(player.getHeading().next());
         }
-         */
+
     }
 
     // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
         Space current = player.getSpace();
-        player.setHeading(player.getHeading().prev());
-        /*
         if (current != null && player.board == current.board) {
-            Space target = board.getNeighbour(current, player.getHeading().prev());
-            if(target != null && target.getPlayer() == null){
-                player.setSpace(target);
-            }
+            player.setHeading(player.getHeading().prev());
         }
-         */
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
