@@ -1,5 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import com.mysql.cj.protocol.x.XMessage;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
@@ -35,13 +36,53 @@ class GameControllerTest {
     }
 
     @Test
-    void someTest() {
+    void moveCurrentPlayerToSpace() {
         Board board = gameController.board;
-
         Player player = board.getCurrentPlayer();
+
         gameController.moveCurrentPlayerToSpace(board.getSpace(0, 4));
 
-        Assertions.assertEquals(player, board.getSpace(0, 4).getPlayer(), "Player " + player.getName() + " should beSpace (0,4)!");
+        Assertions.assertEquals(player, board.getSpace(0, 4).getPlayer(), "Player " + player.getName() + " should be Space (0,4)!");
+        Assertions.assertNull(board.getSpace(0, 0).getPlayer(), " Space (0,0) should be empty");
+        Assertions.assertEquals(player, board.getCurrentPlayer(), "Current player should be " + player.getName());
+
     }
 
+
+    @Test
+    void moveForward() {
+        Board board = gameController.board;
+        Player player = board.getCurrentPlayer();
+
+        gameController.moveForward(player);
+
+        Assertions.assertEquals(player, board.getSpace(0, 1).getPlayer(), "Player " + player.getName() + " should be Space (0,1)!");
+        Assertions.assertNull(board.getSpace(0, 0).getPlayer(), " Space (0,0) should be empty");
+        Assertions.assertEquals(Heading.SOUTH,player.getHeading() , "Player should head SOUTH ");
+
+    }
+
+    @Test
+    void turnRight(){
+        Board board = gameController.board;
+        Player player = board.getCurrentPlayer();
+
+        gameController.turnRight(player);
+
+        Assertions.assertEquals(player, player.getHeading(), "Player " + player.getName() + " should be heading EAST");
+
+
+    }
+
+    @Test
+    void turnLeft() {
+        Board board = gameController.board;
+        Player player = board.getCurrentPlayer();
+
+        gameController.turnLeft(player);
+
+        Assertions.assertEquals(player, player.getHeading(), "Player " + player.getName() + " should be heading WEST");
+
+
+    }
 }
