@@ -222,23 +222,29 @@ public class GameController {
     // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
         Space current = player.getSpace();
+        player.setHeading(player.getHeading().next());
+        /*
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, player.getHeading().next());
             if(target != null && target.getPlayer() == null){
                 player.setSpace(target);
             }
         }
+         */
     }
 
     // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
         Space current = player.getSpace();
+        player.setHeading(player.getHeading().prev());
+        /*
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, player.getHeading().prev());
             if(target != null && target.getPlayer() == null){
                 player.setSpace(target);
             }
         }
+         */
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
