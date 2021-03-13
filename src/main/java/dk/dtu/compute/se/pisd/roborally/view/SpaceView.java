@@ -46,7 +46,6 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
-
     public SpaceView(@NotNull Space space) {
         this.space = space;
 
@@ -96,6 +95,15 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updatePlayer();
         }
+
+        ////////////////////////////////
+        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(Color.GREY);
+        gc.strokeOval(2,2,SPACE_WIDTH-4,SPACE_HEIGHT-4);
+        this.getChildren().add(canvas);
+////////////////////////////////
     }
 
 }
