@@ -238,13 +238,17 @@ public class GameController {
                 player.setSpace(target);
             }
             else{
+                //funktion til at skubbe andre
                 Player playerToPush = board.getSpace(target.x, target.y).getPlayer();
-                Space playerToPushSpace = playerToPush.getSpace();
-                Space PushTarget = board.getNeighbour(playerToPushSpace, player.getHeading());
-                playerToPush.setSpace(PushTarget);
+                pushPlayer(playerToPush, player.getHeading());
                 player.setSpace(target);
             }
         }
+    }
+    public void pushPlayer(Player player, Heading pusher){
+        Space playerToPushSpace = player.getSpace();
+        Space PushTarget = board.getNeighbour(playerToPushSpace, pusher);
+        player.setSpace(PushTarget);
     }
 
     // TODO Assignment V2
