@@ -62,6 +62,7 @@ public class GameController {
         }*/
     }
 
+
     // XXX: V2
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
@@ -141,6 +142,7 @@ public class GameController {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
+
 
     // XXX: V2
     private void executeNextStep() {
@@ -233,6 +235,13 @@ public class GameController {
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, player.getHeading());
             if(target != null && target.getPlayer() == null){
+                player.setSpace(target);
+            }
+            else{
+                Player playerToPush = board.getSpace(target.x, target.y).getPlayer();
+                Space playerToPushSpace = playerToPush.getSpace();
+                Space PushTarget = board.getNeighbour(playerToPushSpace, player.getHeading());
+                playerToPush.setSpace(PushTarget);
                 player.setSpace(target);
             }
         }

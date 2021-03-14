@@ -69,8 +69,6 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.WEST, player.getHeading(), "Player " + player.getName() + " should be heading WEST");
         gameController.turnRight(player);
         Assertions.assertEquals(Heading.NORTH, player.getHeading(), "Player " + player.getName() + " should be heading NORTH");
-
-
     }
 
     @Test
@@ -80,7 +78,5 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.WEST, player.getHeading(), "Player " + player.getName() + " should be heading WEST");
         gameController.turnLeft(player);
         Assertions.assertEquals(Heading.SOUTH, player.getHeading(), "Player " + player.getName() + " should be heading SOUTH");
-
-
     }
 }
