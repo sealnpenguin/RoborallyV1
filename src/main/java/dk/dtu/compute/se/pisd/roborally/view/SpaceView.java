@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.CheckPoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -30,7 +31,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -89,6 +89,10 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
     }
+    ///////////////////////////////////// Placeret her for bedre overblik over nye tilføjelser
+    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    CheckPoint check = new CheckPoint();
 
     @Override
     public void updateView(Subject subject) {
@@ -96,15 +100,12 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
 
         }
-        ////////////////////////////////
-        if (space.x == 1 && space.y == 1){
-            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.GREY);
-            gc.strokeOval(2, 2, SPACE_WIDTH - 4, SPACE_HEIGHT - 4);
+
+        // Hardcoded which spaces contain CheckPoints
+        if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
+            check.createCheckPoint(gc);
             this.getChildren().add(canvas);
         }
-////////////////////////////////
     }
-
+////////////////////////////////
 }
