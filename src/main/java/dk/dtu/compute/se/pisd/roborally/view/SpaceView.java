@@ -78,41 +78,103 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
 
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }
+
 
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
             updatePlayer();
+
         }
 
-        ////////////////////////////////
-        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+//        Checkpoint
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setStroke(Color.GREY);
-        gc.strokeOval(2,2,SPACE_WIDTH-4,SPACE_HEIGHT-4);
-        this.getChildren().add(canvas);
-////////////////////////////////
-        /*    Canvas canvas = new Canvas (SPACE_WIDTH, SPACE_HEIGHT);
+        if (space.x == 1 && space.y == 1) {
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.GREY);
+            gc.strokeOval(2, 2, SPACE_WIDTH - 4, SPACE_HEIGHT - 4);
+            this.getChildren().add(canvas);
+        }
 
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-    gc.setStroke(color.RED);
-    gc.setLineWidth(5);
-    gc.setLineCap(StrokeLineCap.ROUND);
+//        Bottom wall
 
-    gc.strokeLine(2,SPACE_HEIGHT-2, SPACE_WIDTH-2, SPACE_HEIGHT-2);
-    this.getChildren().add(canvas);*/
+        if (space.x == 2 && space.y == 2) {
+
+
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+
+            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+            this.getChildren().add(canvas);
+
+        }
+
+//        Vertical wall - right
+
+        if (space.x == 3 && space.y == 3) {
+
+
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+
+            gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+            this.getChildren().add(canvas);
+
+        }
+
+//        Vertical wall - left
+
+        if (space.x == 4 && space.y == 4) {
+
+
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+
+            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+            this.getChildren().add(canvas);
+
+        }
+
+//        Top wall
+
+        if (space.x == 5 && space.y == 5) {
+
+
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+
+            gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+            this.getChildren().add(canvas);
+
+        }
 
     }
 
