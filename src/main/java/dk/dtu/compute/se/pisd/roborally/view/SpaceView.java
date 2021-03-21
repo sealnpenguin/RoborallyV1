@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.CheckPoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -90,12 +91,22 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
     }
+///////////////////////////////////// Placeret her for bedre overblik over nye tilføjelser (3 linjer)
+    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    CheckPoint check = new CheckPoint();
 
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
             updatePlayer();
+
+        }
+
+        // Hardcoded which spaces contain CheckPoints
+        if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
+            check.createCheckPoint(gc);
+            this.getChildren().add(canvas);
         }
     }
-
 }
