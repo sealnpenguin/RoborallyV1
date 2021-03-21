@@ -233,7 +233,24 @@ public class GameController {
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, player.getHeading());
             if(target != null && target.getPlayer() == null){
-                player.setSpace(target);
+                switch(player.getHeading()){
+                    case NORTH:
+                        if(!current.hasWallNouth && !target.hasWallSouth){
+                            player.setSpace(target);
+                        } break;
+                    case SOUTH:
+                        if(!current.hasWallSouth && !target.hasWallNouth){
+                            player.setSpace(target);
+                        } break;
+                    case EAST:
+                        if(!current.hasWallEast && !target.hasWallWest){
+                            player.setSpace(target);
+                        } break;
+                    case WEST:
+                        if(!current.hasWallWest && !target.hasWallEast){
+                            player.setSpace(target);
+                        } break;
+                }
             }
         }
     }
