@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.CheckPoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
@@ -41,6 +42,10 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 public class SpaceView extends StackPane implements ViewObserver {
+
+    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    CheckPoint check = new CheckPoint();
 
     final public static int SPACE_HEIGHT = 75; // 60; // 75;
     final public static int SPACE_WIDTH = 75;  // 60; // 75;
@@ -107,7 +112,11 @@ public class SpaceView extends StackPane implements ViewObserver {
         DrawWall(3,3,"South");
 
 
-        drawCheckpoint(1,1);
+        // Hardcoded which spaces contain CheckPoints
+        if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
+            check.createCheckPoint(gc);
+            this.getChildren().add(canvas);
+        }
 
 
     }
@@ -138,17 +147,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                     space.hasWallWest = true;
                     break;
             }
-            this.getChildren().add(canvas);
-        }
-    }
-    //*******************************CHECKPOINTS**********************************//
-    void drawCheckpoint(int drawAtX,int drawAtY){
-        if (space.x == drawAtX && space.y == drawAtY) {
-            space.hasCheckpoint = true;
-            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.GREY);
-            gc.strokeOval(20, 20, SPACE_WIDTH - 40, SPACE_HEIGHT - 40);
             this.getChildren().add(canvas);
         }
     }
