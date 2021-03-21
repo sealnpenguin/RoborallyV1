@@ -9,6 +9,10 @@ import static dk.dtu.compute.se.pisd.roborally.view.SpaceView.SPACE_WIDTH;
 
 public class CheckPoint extends StackPane {
 
+    /**
+     * createCheckPoint draws a new checkpoint graphic each time it is called from SpaceView
+     * @param gc;
+     */
     public void createCheckPoint(GraphicsContext gc) {
         gc.setStroke(Color.GREY);
         gc.setLineWidth(3);
