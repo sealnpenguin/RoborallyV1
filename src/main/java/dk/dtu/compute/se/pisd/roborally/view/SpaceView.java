@@ -97,7 +97,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
 
         }
-        DrawWall(5,space,"South");
+        DrawWall(0,0,space,"North");
+        DrawWall(5,5,space,"South");
 //        Checkpoint
 
         /*if (space.x == 1 && space.y == 1) {
@@ -178,8 +179,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
-    void DrawWall(int spaceToDrawAt, Space space, String wallPositioning) {
-        if (space.x == spaceToDrawAt && space.y == spaceToDrawAt) {
+    void DrawWall(int DrawAtX, int DrawAtY, Space space, String wallPositioning) {
+        if (space.x == DrawAtX && space.y == DrawAtY) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
 
             GraphicsContext gc = canvas.getGraphicsContext2D();
