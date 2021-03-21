@@ -97,8 +97,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updatePlayer();
         }
-        DrawWall(0,0,"North");
-        DrawWall(5,5,"South");
+        for (int i = 0; i < 8; i++) {
+            DrawWall(i,0,"North");
+        }
+        for (int i = 0; i < 8; i++) {
+            DrawWall(0,i,"West");
+        }
+        //DrawWall(0,0,"North");
+        DrawWall(3,3,"South");
 
 
         drawCheckpoint(1,1);
