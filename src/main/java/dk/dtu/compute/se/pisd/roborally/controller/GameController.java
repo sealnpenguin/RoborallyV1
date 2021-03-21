@@ -228,6 +228,7 @@ public class GameController {
     }
 
     // TODO Assignment V2
+    // - BUG**** HVIS 2 spillere bliver skubbet benytter nr. 2 skubbet spiller af nr. 1's heading.
     public void moveForward(@NotNull Player player, Heading heading) {
         //heading = Heading.NORTH;
         Space current = player.getSpace();
