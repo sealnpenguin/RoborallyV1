@@ -97,10 +97,10 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
 
         }
-
+        DrawWall(5,space,"South");
 //        Checkpoint
 
-        if (space.x == 1 && space.y == 1) {
+        /*if (space.x == 1 && space.y == 1) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setStroke(Color.GREY);
@@ -174,8 +174,33 @@ public class SpaceView extends StackPane implements ViewObserver {
             gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
             this.getChildren().add(canvas);
 
-        }
+        }*/
 
     }
 
+    void DrawWall(int spaceToDrawAt, Space space, String wallPositioning) {
+        if (space.x == spaceToDrawAt && space.y == spaceToDrawAt) {
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            switch (wallPositioning){
+                case "North":
+                    gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                    break;
+                case "South":
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    break;
+                case "East":
+                    gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    break;
+                case "West":
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+                    break;
+            }
+            this.getChildren().add(canvas);
+        }
+    }
 }
