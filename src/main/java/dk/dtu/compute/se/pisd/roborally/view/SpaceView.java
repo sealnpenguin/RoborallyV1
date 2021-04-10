@@ -30,7 +30,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,6 +42,10 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 public class SpaceView extends StackPane implements ViewObserver {
+
+    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+    GraphicsContext gc = canvas.getGraphicsContext2D();
+    CheckPoint check = new CheckPoint();
 
     final public static int SPACE_HEIGHT = 75; // 60; // 75;
     final public static int SPACE_WIDTH = 75;  // 60; // 75;
@@ -78,34 +84,69 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
 
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }
-    ///////////////////////////////////// Placeret her for bedre overblik over nye tilføjelser
-    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-    GraphicsContext gc = canvas.getGraphicsContext2D();
-    CheckPoint check = new CheckPoint();
+
 
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
             updatePlayer();
-
         }
+        for (int i = 0; i < 8; i++) {
+            DrawWall(i,0,"North");
+        }
+        for (int i = 0; i < 8; i++) {
+            DrawWall(0,i,"West");
+        }
+        //DrawWall(0,0,"North");
+        DrawWall(3,3,"South");
+
 
         // Hardcoded which spaces contain CheckPoints
         if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
             check.createCheckPoint(gc);
             this.getChildren().add(canvas);
         }
+
     }
-////////////////////////////////
+//*******************************WALLS**********************************//
+    void DrawWall(int DrawAtX, int DrawAtY, String wallPositioning) {
+        if (space.x == DrawAtX && space.y == DrawAtY) {
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            switch (wallPositioning){
+                case "North":
+                    gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                    space.hasWallNouth = true;
+                    break;
+                case "South":
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    space.hasWallSouth = true;
+                    break;
+                case "East":
+                    gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    space.hasWallEast = true;
+                    break;
+                case "West":
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+                    space.hasWallWest = true;
+                    break;
+            }
+            this.getChildren().add(canvas);
+        }
+    }
 }
