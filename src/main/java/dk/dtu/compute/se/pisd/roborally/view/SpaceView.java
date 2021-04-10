@@ -131,19 +131,19 @@ public class SpaceView extends StackPane implements ViewObserver {
             switch (wallPositioning){
                 case "North":
                     gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
-                    space.hasWallNouth = true;
+                    //space.hasWallNouth = true;
                     break;
                 case "South":
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    space.hasWallSouth = true;
+                    //space.hasWallSouth = true;
                     break;
                 case "East":
                     gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    space.hasWallEast = true;
+                    //space.hasWallEast = true;
                     break;
                 case "West":
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
-                    space.hasWallWest = true;
+                    //space.hasWallWest = true;
                     break;
             }
             this.getChildren().add(canvas);
