@@ -19,13 +19,11 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-package dk.dtu.compute.se.pisd.roborally.fileacces.model;
-
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
+package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * ...
@@ -33,12 +31,11 @@ import java.util.List;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
-public class SpaceTemplate {
+public class BoardTemplate {
 
-    public List<Heading> walls = new ArrayList<>();
-    public List<FieldAction> actions = new ArrayList<>();
+    public int width;
+    public int height;
 
-    public int x;
-    public int y;
+    public List<SpaceTemplate> spaces = new ArrayList<>();
 
 }
