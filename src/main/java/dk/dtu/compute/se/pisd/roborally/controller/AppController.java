@@ -26,6 +26,8 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
+import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -34,6 +36,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import jdk.jfr.internal.Repository;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -55,6 +58,7 @@ public class AppController implements Observer {
 
     private GameController gameController;
 
+    //RepositoryAccess iRepository;
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
@@ -95,13 +99,24 @@ public class AppController implements Observer {
 
     public void saveGame() {
         // XXX needs to be implemented eventually
+        //iRepository.
+        RepositoryAccess.getRepository().createGameInDB(gameController.board);
     }
 
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            newGame();
+            //newGame();
+            //System.out.println("lol");
+            System.out.println(RepositoryAccess.getRepository().getGames());
+            gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(7));
+            roboRally.createBoardView(gameController);
+
+
+        } else {
+            //System.out.println(RepositoryAccess.getRepository().getGames());
+            //RepositoryAccess.getRepository().loadGameFromDB(0);
         }
     }
 
