@@ -104,13 +104,15 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
         drawAll();
         for (int i = 0; i < 8; i++) {
-            DrawWall(i,0,"North","wall");
+            DrawWall(i,0,"NORTH","wall");
+            DrawWall(i,7,"SOUTH", "wall");
         }
         for (int i = 0; i < 8; i++) {
-            DrawWall(0,i,"West", "wall");
+            DrawWall(0,i,"WEST", "wall");
+            DrawWall(7,i,"EAST", "wall");
         }
         //DrawWall(0,0,"North");
-        DrawWall(3,3,"South", "wall");
+        DrawWall(3,3,"SOUTH", "wall");
 
 
         // Hardcoded which spaces contain CheckPoints
@@ -141,7 +143,9 @@ public class SpaceView extends StackPane implements ViewObserver {
             switch (Heading){
                 case "NORTH":
                     if(typeOfDrawing.equals("wall")){
-                        gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);}
+                        gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                        space.hasWallNouth = true;}
+
                     else if(typeOfDrawing.equals("circle")) {
                         gc.setStroke(Color.GRAY);
                         gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
@@ -149,11 +153,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                         gc.setStroke(Color.BLUE);
                         gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
                     }
-                    //space.hasWallNouth = true;
                     break;
                 case "SOUTH":
                     if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);}
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                        space.hasWallSouth = true;}
                     else if(typeOfDrawing.equals("circle")) {
                         gc.setStroke(Color.GRAY);
                         gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
@@ -161,11 +165,12 @@ public class SpaceView extends StackPane implements ViewObserver {
                         gc.setStroke(Color.BLUE);
                         gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
                     }
-                    //space.hasWallSouth = true;
+
                     break;
                 case "EAST":
                     if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);}
+                    gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                        space.hasWallEast = true;}
                     else if(typeOfDrawing.equals("circle")) {
                         gc.setStroke(Color.GRAY);
                         gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
@@ -173,11 +178,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                         gc.setStroke(Color.BLUE);
                         gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
                     }
-                    //space.hasWallEast = true;
                     break;
                 case "WEST":
                     if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);}
+                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+                        space.hasWallWest = true;}
                     else if(typeOfDrawing.equals("circle")) {
                         gc.setStroke(Color.GRAY);
                         gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
@@ -185,7 +190,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                         gc.setStroke(Color.BLUE);
                         gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
                     }
-                    //space.hasWallWest = true;
                     break;
             }
             this.getChildren().add(canvas);
