@@ -51,6 +51,7 @@ import java.util.Optional;
  */
 public class AppController implements Observer {
 
+    final private List<Integer> LOAD_OPTIONS = Arrays.asList(1, 2, 3, 4, 5, 6);
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
@@ -107,11 +108,20 @@ public class AppController implements Observer {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            //newGame();
-            //System.out.println("lol");
+            ChoiceDialog<Integer> loadDialog = new ChoiceDialog<>(LOAD_OPTIONS.get(0), LOAD_OPTIONS);
+            loadDialog.setTitle("Saved games");
+            loadDialog.setHeaderText("Select saved game");
+            Optional<Integer> result = loadDialog.showAndWait(); //necessary .showAndWait() to get result
+            int chosenGame = loadDialog.getResult();
             System.out.println(RepositoryAccess.getRepository().getGames());
-            gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(7));
-            roboRally.createBoardView(gameController);
+            try{
+                gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(chosenGame));
+                roboRally.createBoardView(gameController);
+            }
+            catch(Exception e){
+                System.out.println("No saved game! Try a new one.");
+                newGame();
+            }
 
 
         } else {
