@@ -22,10 +22,9 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.CheckPoint;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
@@ -102,6 +101,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updatePlayer();
         }
+        drawAll();
         for (int i = 0; i < 8; i++) {
             DrawWall(i,0,"North");
         }
@@ -117,7 +117,14 @@ public class SpaceView extends StackPane implements ViewObserver {
             check.createCheckPoint(gc);
             this.getChildren().add(canvas);
         }
-
+    }
+    
+    public void drawAll(){
+        if(space.getActions().size() > 0){
+            if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
+                DrawWall(space.x, space.y, "South");
+            } else if(space.getActions().get(0).getClass().toString().contains(("Checkpoint")));
+        }
     }
 //*******************************WALLS**********************************//
     void DrawWall(int DrawAtX, int DrawAtY, String wallPositioning) {

@@ -27,6 +27,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
+import javax.naming.Name;
+
 /**
  * ...
  *
@@ -35,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ConveyorBelt extends FieldAction {
 
-    private Heading heading;
+    private Heading heading = Heading.SOUTH;
 
     public Heading getHeading() {
         return heading;
@@ -48,6 +50,9 @@ public class ConveyorBelt extends FieldAction {
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
         // TODO needs to be implemented
+        if(space.getPlayer() != null){
+            gameController.pushPlayer(space.getPlayer(), this.getHeading());
+        }
         return false;
     }
 

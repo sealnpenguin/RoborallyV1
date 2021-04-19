@@ -69,6 +69,11 @@ public class GameController {
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
 
+        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
+        board.getSpace(1,1).getActions().add(new ConveyorBelt());
+        board.getSpace(3,1).getActions().add(new ConveyorBelt());
+        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
+
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
             if (player != null) {
@@ -147,6 +152,13 @@ public class GameController {
     // XXX: V2
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
+        Space current = currentPlayer.getSpace();
+
+        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
+        if(current.getActions().size() != 0){
+            current.getActions().get(0).doAction(this,current);
+        } // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
+
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
