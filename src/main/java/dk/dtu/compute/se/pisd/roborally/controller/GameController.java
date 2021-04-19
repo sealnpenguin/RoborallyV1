@@ -226,7 +226,7 @@ public class GameController {
 
             switch (command) {
                 case FORWARD:
-                    this.moveForward(player);
+                    this.moveForward(player, player.getHeading());
                     break;
                 case RIGHT:
                     this.turnRight(player);
@@ -244,19 +244,58 @@ public class GameController {
     }
 
     // TODO Assignment V2
-    public void moveForward(@NotNull Player player) {
+    public void moveForward(@NotNull Player player, Heading heading) {
+        //heading = Heading.NORTH;
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
-            Space target = board.getNeighbour(current, player.getHeading());
-            if(target != null && target.getPlayer() == null){
-                player.setSpace(target);
+            Space target = board.getNeighbour(current, heading);
+
+            if(target != null){
+
+                switch(heading){
+
+                    case NORTH:
+                        if(!current.hasWallNouth && !target.hasWallSouth){
+                            if(target.getPlayer() != null){
+                                moveForward(target.getPlayer(), player.getHeading());
+                            }
+                            if(target.getPlayer() == null){
+                                player.setSpace(target);
+                            }
+                        } break;
+
+                    case SOUTH:
+                        if(!current.hasWallSouth && !target.hasWallNouth){
+                            if(target.getPlayer() != null){
+                                moveForward(target.getPlayer(), player.getHeading());
+                            }
+                            if(target.getPlayer() == null){
+                                player.setSpace(target);
+                            }
+                        } break;
+
+                    case EAST:
+                        if(!current.hasWallEast && !target.hasWallWest){
+                            if(target.getPlayer() != null){
+                                moveForward(target.getPlayer(), player.getHeading());
+                            }
+                            if(target.getPlayer() == null){
+                                player.setSpace(target);
+                            }
+                        } break;
+
+                    case WEST:
+                        if(!current.hasWallWest && !target.hasWallEast){
+                            if(target.getPlayer() != null){
+                                moveForward(target.getPlayer(), player.getHeading());
+                            }
+                            if(target.getPlayer() == null){
+                                player.setSpace(target);
+                            }
+                        } break;
+                }
             }
-            else{
-                //funktion til at skubbe andre
-                Player playerToPush = board.getSpace(target.x, target.y).getPlayer();
-                pushPlayer(playerToPush, player.getHeading());
-                player.setSpace(target);
-            }
+
         }
     }
     public void pushPlayer(Player player, Heading pusher){
@@ -267,8 +306,8 @@ public class GameController {
 
     // TODO Assignment V2
     public void fastForward(@NotNull Player player) {
-        moveForward(player);
-        moveForward(player);
+        moveForward(player, player.getHeading());
+        moveForward(player, player.getHeading());
     }
 
     // TODO Assignment V2

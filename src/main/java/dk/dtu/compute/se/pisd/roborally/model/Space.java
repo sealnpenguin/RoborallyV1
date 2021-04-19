@@ -47,6 +47,13 @@ public class Space extends Subject {
     public final int x;
     public final int y;
 
+    public boolean hasWallNouth = false;
+    public boolean hasWallSouth = false;
+    public boolean hasWallWest = false;
+    public boolean hasWallEast = false;
+
+    public boolean hasCheckpoint = false;
+
     public Space(Board board, int x, int y) {
         this.board = board;
         this.x = x;

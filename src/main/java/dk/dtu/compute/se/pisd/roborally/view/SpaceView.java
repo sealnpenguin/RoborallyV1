@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
@@ -103,13 +104,15 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
         drawAll();
         for (int i = 0; i < 8; i++) {
-            DrawWall(i,0,"North");
+            DrawWall(i,0,"NORTH","wall");
+            DrawWall(i,7,"SOUTH", "wall");
         }
         for (int i = 0; i < 8; i++) {
-            DrawWall(0,i,"West");
+            DrawWall(0,i,"WEST", "wall");
+            DrawWall(7,i,"EAST", "wall");
         }
         //DrawWall(0,0,"North");
-        DrawWall(3,3,"South");
+        DrawWall(3,3,"SOUTH", "wall");
 
 
         // Hardcoded which spaces contain CheckPoints
@@ -122,15 +125,12 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void drawAll(){
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
-                DrawWall(space.x, space.y, "South");
-            } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint2")))
-            {
-                DrawWall(space.x, space.y, "East");
-            }
+                DrawWall(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
+            } else if(space.getActions().get(0).getClass().toString().contains(("Checkpoint")));
         }
     }
 //*******************************WALLS**********************************//
-    void DrawWall(int DrawAtX, int DrawAtY, String wallPositioning) {
+    void DrawWall(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
 
@@ -138,25 +138,63 @@ public class SpaceView extends StackPane implements ViewObserver {
             gc.setStroke(Color.RED);
             gc.setLineWidth(5);
             gc.setLineCap(StrokeLineCap.ROUND);
-            switch (wallPositioning){
-                case "North":
-                    gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
-                    //space.hasWallNouth = true;
+
+
+            switch (Heading){
+                case "NORTH":
+                    if(typeOfDrawing.equals("wall")){
+                        gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                        space.hasWallNouth = true;}
+
+                    else if(typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if(typeOfDrawing.equals("square")){
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
+                    }
                     break;
-                case "South":
+                case "SOUTH":
+                    if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    //space.hasWallSouth = true;
+                        space.hasWallSouth = true;}
+                    else if(typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if(typeOfDrawing.equals("square")){
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
+                    }
+
                     break;
-                case "East":
+                case "EAST":
+                    if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    //space.hasWallEast = true;
+                        space.hasWallEast = true;}
+                    else if(typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if(typeOfDrawing.equals("square")){
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
+                    }
                     break;
-                case "West":
+                case "WEST":
+                    if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
-                    //space.hasWallWest = true;
+                        space.hasWallWest = true;}
+                    else if(typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if(typeOfDrawing.equals("square")){
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
+                    }
                     break;
             }
             this.getChildren().add(canvas);
         }
     }
+
+
 }

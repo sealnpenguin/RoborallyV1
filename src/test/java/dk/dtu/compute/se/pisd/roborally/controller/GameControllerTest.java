@@ -55,7 +55,7 @@ class GameControllerTest {
         Player player = board.getCurrentPlayer();
 
         Assertions.assertEquals(player, board.getSpace(1, 0).getPlayer(), "Player " + player.getName() + " should be Space (1,0)!");
-        gameController.moveForward(player);
+        gameController.moveForward(player, player.getHeading());
         Assertions.assertEquals(player, board.getSpace(0, 0).getPlayer(), "Player " + player.getName() + " should be Space (0,1)!");
         Assertions.assertNull(board.getSpace(1, 0).getPlayer(), " Space (1,0) should be empty");
         Assertions.assertEquals(Heading.WEST,player.getHeading() , "Player should head WEST ");
