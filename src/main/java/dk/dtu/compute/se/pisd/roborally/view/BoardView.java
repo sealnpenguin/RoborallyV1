@@ -114,7 +114,7 @@ public class BoardView extends VBox implements ViewObserver {
                     } else if (event.isControlDown()) {
                         gameController.turnLeft(player);
                     } else {
-                        gameController.moveForward(player);
+                        gameController.moveForward(player, player.getHeading());
                     }
                     event.consume();
                 }
