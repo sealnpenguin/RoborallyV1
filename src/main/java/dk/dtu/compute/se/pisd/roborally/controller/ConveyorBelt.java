@@ -37,7 +37,7 @@ import javax.naming.Name;
  */
 public class ConveyorBelt extends FieldAction {
 
-    private Heading heading = Heading.SOUTH;
+    private Heading heading = Heading.EAST;
 
     public Heading getHeading() {
         return heading;

@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
@@ -122,7 +123,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void drawAll(){
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
-                DrawWall(space.x, space.y, "South", "square");
+                DrawWall(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
             } else if(space.getActions().get(0).getClass().toString().contains(("Checkpoint")));
         }
     }
@@ -138,7 +139,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
 
             switch (Heading){
-                case "North":
+                case "NORTH":
                     if(typeOfDrawing.equals("wall")){
                         gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);}
                     else if(typeOfDrawing.equals("circle")) {
@@ -150,7 +151,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     }
                     //space.hasWallNouth = true;
                     break;
-                case "South":
+                case "SOUTH":
                     if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);}
                     else if(typeOfDrawing.equals("circle")) {
@@ -162,7 +163,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     }
                     //space.hasWallSouth = true;
                     break;
-                case "East":
+                case "EAST":
                     if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);}
                     else if(typeOfDrawing.equals("circle")) {
@@ -174,7 +175,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     }
                     //space.hasWallEast = true;
                     break;
-                case "West":
+                case "WEST":
                     if(typeOfDrawing.equals("wall")){
                     gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);}
                     else if(typeOfDrawing.equals("circle")) {
