@@ -45,6 +45,7 @@ public class Player extends Subject {
 
     private String name;
     private String color;
+    private int recentCheckpoint;
 
     private Space space;
     private Heading heading = SOUTH;
@@ -128,6 +129,16 @@ int checkPointStatus = 0;
                 space.playerChanged();
             }
         }
+    }
+    //this gets updated whenever a player reaches a checkpoint one higher than what the player already has
+    public void RecentCheckpoint(int recentCheckpoint){
+        if (recentCheckpoint == (this.recentCheckpoint + 1)){
+            this.recentCheckpoint = recentCheckpoint;
+            notifyChange();
+        }
+    }
+    public int getRecentCheckpoint(){
+        return recentCheckpoint;
     }
 
     public CommandCardField getProgramField(int i) {

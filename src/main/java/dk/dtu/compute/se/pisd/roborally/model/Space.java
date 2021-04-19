@@ -41,8 +41,7 @@ public class Space extends Subject {
     private Player player;
 
     private List<Heading> walls = new ArrayList<>();
-    private List<FieldAction> actions = new ArrayList<>();
-
+    public List<FieldAction> actions = new ArrayList<>();
     public final Board board;
 
     public final int x;
@@ -74,6 +73,7 @@ public class Space extends Subject {
             notifyChange();
         }
     }
+
 
     public List<Heading> getWalls() {
         return walls;

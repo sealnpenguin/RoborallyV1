@@ -123,7 +123,10 @@ public class SpaceView extends StackPane implements ViewObserver {
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
                 DrawWall(space.x, space.y, "South");
-            } else if(space.getActions().get(0).getClass().toString().contains(("Checkpoint")));
+            } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint2")))
+            {
+                DrawWall(space.x, space.y, "East");
+            }
         }
     }
 //*******************************WALLS**********************************//

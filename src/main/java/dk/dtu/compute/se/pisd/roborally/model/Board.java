@@ -53,6 +53,8 @@ public class Board extends Subject {
     private final Space[][] spaces;
 
     private final List<Player> players = new ArrayList<>();
+    //martin
+private List<CheckPoint2> checkpoints = new ArrayList<CheckPoint2>();
 
     private Player current;
 
@@ -130,6 +132,11 @@ public class Board extends Subject {
             return null;
         }
     }
+    public List<CheckPoint2> getCheckpoints() {return this.checkpoints;}
+//Martin
+public void setCheckpoin(CheckPoint2 checkpoint){
+this.checkpoints.add(checkpoint);
+}
 
     public Player getCurrentPlayer() {
         return current;
