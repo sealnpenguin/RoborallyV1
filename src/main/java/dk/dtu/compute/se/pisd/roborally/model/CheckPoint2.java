@@ -19,7 +19,11 @@ public class CheckPoint2 extends FieldAction {
         Player player = space.getPlayer();
         if (player != null){
             player.RecentCheckpoint(this.n);
+            if (player.getRecentCheckpoint() == gameController.board.getTotalCheckpoints()){
+                System.out.println("You win");
+            }
             //if player.getRecentCheckpoint ==  max checkpoint annoucnce winner eller noget???
+            System.out.println(n);
         }
         return true;
     }

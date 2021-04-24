@@ -73,7 +73,13 @@ public class GameController {
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
         board.getSpace(1,1).getActions().add(new ConveyorBelt());
         board.getSpace(3,1).getActions().add(new ConveyorBelt());
-        board.getSpace(5, 1).getActions().add(new CheckPoint2(1));
+
+        if (board.getTotalCheckpoints() < 1) {
+            board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
+            board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
+        }
+
+
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
         for (int i = 0; i < board.getPlayersNumber(); i++) {

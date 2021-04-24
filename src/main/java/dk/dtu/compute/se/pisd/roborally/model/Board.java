@@ -54,7 +54,7 @@ public class Board extends Subject {
 
     private final List<Player> players = new ArrayList<>();
     //martin
-private List<CheckPoint2> checkpoints = new ArrayList<CheckPoint2>();
+private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
     private Player current;
 
@@ -132,9 +132,12 @@ private List<CheckPoint2> checkpoints = new ArrayList<CheckPoint2>();
             return null;
         }
     }
-    public List<CheckPoint2> getCheckpoints() {return this.checkpoints;}
+    public int getTotalCheckpoints(){
+        return checkpoints.size();
+    }
 //Martin
-public void setCheckpoin(CheckPoint2 checkpoint){
+
+public void addCheckpoint(boolean checkpoint){
 this.checkpoints.add(checkpoint);
 }
 
