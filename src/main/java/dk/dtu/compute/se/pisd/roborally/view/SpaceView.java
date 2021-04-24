@@ -103,7 +103,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
         drawAll();
-        for (int i = 0; i < 8; i++) {
+        /*for (int i = 0; i < 8; i++) {
             DrawWall(i,0,"NORTH","wall");
             DrawWall(i,7,"SOUTH", "wall");
         }
@@ -112,21 +112,23 @@ public class SpaceView extends StackPane implements ViewObserver {
             DrawWall(7,i,"EAST", "wall");
         }
         //DrawWall(0,0,"North");
-        DrawWall(3,3,"SOUTH", "wall");
+        DrawWall(3,3,"SOUTH", "wall");*/
 
 
         // Hardcoded which spaces contain CheckPoints
-        if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
+        /*if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
             check.createCheckPoint(gc);
             this.getChildren().add(canvas);
-        }
+        }*/
     }
     
     public void drawAll(){
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
                 DrawWall(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
-            } else if(space.getActions().get(0).getClass().toString().contains(("Checkpoint")));
+            } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint"))){
+                DrawWall(space.x, space.y, "NORTH", "circle");
+            }
         }
     }
 //*******************************WALLS**********************************//
