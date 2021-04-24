@@ -23,14 +23,11 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
@@ -125,14 +122,19 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void drawAll(){
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
-                DrawWall(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
+                drawObject(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
             } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint"))){
-                DrawWall(space.x, space.y, "NORTH", "circle");
+                drawObject(space.x, space.y, "NORTH", "circle");
+            }
+        }
+        if (!space.getWalls().isEmpty()){
+            for (Heading wallPos : space.getWalls()){
+                    drawObject(space.x, space.y, wallPos.toString(), "wall");
             }
         }
     }
 //*******************************WALLS**********************************//
-    void DrawWall(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
+    void drawObject(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
 
