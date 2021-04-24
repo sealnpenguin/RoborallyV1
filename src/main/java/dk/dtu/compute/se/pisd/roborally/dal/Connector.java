@@ -41,7 +41,7 @@ class Connector {
     private static final int    PORT     = 3306;
     private static final String DATABASE = "pisu";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "jQY76o5G";
+    private static final String PASSWORD = "sxgfgzJsms63Fe";
 
     private static final String DELIMITER = ";;";
     
@@ -60,7 +60,6 @@ class Connector {
 					// pop up med fejl
 			e.printStackTrace();
 			// Platform.exit();
-
 		}
     }
     

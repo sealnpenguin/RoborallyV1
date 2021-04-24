@@ -101,12 +101,16 @@ public class AppController implements Observer {
     public void saveGame() {
         // XXX needs to be implemented eventually
         //iRepository.
-        RepositoryAccess.getRepository().createGameInDB(gameController.board);
+        //Anne Sophie - If the game has been saved before, it will be saved by the same gameID (same place)
+        try {
+            RepositoryAccess.getRepository().updateGameInDB(gameController.board);
+        } catch (Exception e) {
+            RepositoryAccess.getRepository().createGameInDB(gameController.board);
+        }
     }
 
     public void loadGame() {
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
+        // Anne Sophie - Can only load the first six saved games (hardcoded)
         if (gameController == null) {
             ChoiceDialog<Integer> loadDialog = new ChoiceDialog<>(LOAD_OPTIONS.get(0), LOAD_OPTIONS);
             loadDialog.setTitle("Saved games");
@@ -114,11 +118,11 @@ public class AppController implements Observer {
             Optional<Integer> result = loadDialog.showAndWait(); //necessary .showAndWait() to get result
             int chosenGame = loadDialog.getResult();
             System.out.println(RepositoryAccess.getRepository().getGames());
-            try{
+            try {
                 gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(chosenGame));
                 roboRally.createBoardView(gameController);
             }
-            catch(Exception e){
+            catch(Exception e) {
                 System.out.println("No saved game! Try a new one.");
                 newGame();
             }
