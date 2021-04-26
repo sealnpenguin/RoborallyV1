@@ -28,6 +28,7 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -36,12 +37,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
 import jdk.jfr.internal.Repository;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * ...
@@ -51,7 +52,7 @@ import java.util.Optional;
  */
 public class AppController implements Observer {
 
-    final private List<Integer> LOAD_OPTIONS = Arrays.asList(1, 2, 3, 4, 5, 6, 22);
+    final private List<String> LOAD_OPTIONS = new ArrayList<>();
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
@@ -81,7 +82,8 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = new Board(8,8);
+            Board board = LoadBoard.loadBoard(null);
+            System.out.println(board.getBoardName());
             gameController = new GameController(board);
             int no = result.get();
             for (int i = 0; i < no; i++) {
@@ -104,22 +106,32 @@ public class AppController implements Observer {
         //Anne Sophie - If the game has been saved before, it will be saved by the same gameID (same place)
         try {
             RepositoryAccess.getRepository().updateGameInDB(gameController.board);
+            LoadBoard.saveBoard(gameController.board,gameController.board.getBoardName());
+            System.out.println("Updating save");
         } catch (Exception e) {
+            TextInputDialog td = new TextInputDialog("Name your save");
+            gameController.board.boardName =td.showAndWait().get();
             RepositoryAccess.getRepository().createGameInDB(gameController.board);
+            LoadBoard.saveBoard(gameController.board,td.getResult());
+            System.out.println("Saving");
+
+
         }
     }
 
     public void loadGame() {
         // Anne Sophie - Can only load the first six saved games (hardcoded)
         if (gameController == null) {
-            ChoiceDialog<Integer> loadDialog = new ChoiceDialog<>(LOAD_OPTIONS.get(0), LOAD_OPTIONS);
+            for (int i = 0; i < RepositoryAccess.getRepository().getGames().size(); i++) {
+                LOAD_OPTIONS.add(i+": " + RepositoryAccess.getRepository().getGames().get(i).name);
+            }
+            ChoiceDialog<String> loadDialog = new ChoiceDialog<String>(LOAD_OPTIONS.get(0), LOAD_OPTIONS);
             loadDialog.setTitle("Saved games");
             loadDialog.setHeaderText("Select saved game");
-            Optional<Integer> result = loadDialog.showAndWait(); //necessary .showAndWait() to get result
-            int chosenGame = loadDialog.getResult();
-            System.out.println(RepositoryAccess.getRepository().getGames());
+            Optional<String> result = loadDialog.showAndWait(); //necessary .showAndWait() to get result
             try {
-                gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(chosenGame));
+                System.out.println(LOAD_OPTIONS.indexOf(loadDialog.getResult()) + " Loader denne save");
+                gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(LOAD_OPTIONS.indexOf(loadDialog.getResult())));
                 roboRally.createBoardView(gameController);
             }
             catch(Exception e) {

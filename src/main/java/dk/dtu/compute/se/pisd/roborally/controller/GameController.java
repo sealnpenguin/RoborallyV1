@@ -71,17 +71,17 @@ public class GameController {
         board.setStep(0);
 
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
-        if (board.getTotalCheckpoints() < 1) {
-        board.getSpace(1,1).getActions().add(new ConveyorBelt());
-        board.getSpace(3,1).getActions().add(new ConveyorBelt());
-        board.getSpace(4, 2).addWall(Heading.SOUTH);
+        /*if (board.getTotalCheckpoints() < 1) {
+        board.getSpace(2,3).getActions().add(new ConveyorBelt());
+        board.getSpace(5,1).getActions().add(new ConveyorBelt());
+        board.getSpace(7, 2).addWall(Heading.SOUTH);
         board.getSpace(4,2).addWall(Heading.NORTH);
 
 
 
             board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
             board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
-        }
+        }*/
 
 
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.

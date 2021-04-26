@@ -46,7 +46,7 @@ public class Board extends Subject {
 
     public final int height;
 
-    public final String boardName;
+    public String boardName;
 
     private Integer gameId;
 
@@ -254,6 +254,7 @@ this.checkpoints.add(checkpoint);
         return count;
     }
 
+    public String getBoardName(){return boardName;}
     public void setCount(int count) {
         //only updates when it is necessary
         if (this.count != count) {
