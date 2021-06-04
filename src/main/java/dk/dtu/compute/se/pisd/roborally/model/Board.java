@@ -56,6 +56,8 @@ public class Board extends Subject {
     //martin
 private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
+    private List<Boolean> Gear = new ArrayList<Boolean>();
+
     private Player current;
 
     private Phase phase = INITIALISATION;
@@ -139,6 +141,9 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
 public void addCheckpoint(boolean checkpoint){
 this.checkpoints.add(checkpoint);
+}
+public void addGear(boolean Gear){
+        this.Gear.add(Gear);
 }
 
     public Player getCurrentPlayer() {

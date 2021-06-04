@@ -77,10 +77,15 @@ public class GameController {
         board.getSpace(4, 2).addWall(Heading.SOUTH);
         board.getSpace(4,2).addWall(Heading.NORTH);
 
+        board.addGear(board.getSpace(4, 5).getActions().add(new Gear(Heading.WEST)));
+        board.addGear(board.getSpace(4, 6).getActions().add(new Gear(Heading.EAST)));
+
+
 
 
             board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
             board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
+
         }
 
 
