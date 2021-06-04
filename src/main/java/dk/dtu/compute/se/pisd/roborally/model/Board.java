@@ -56,6 +56,8 @@ public class Board extends Subject {
     //martin
 private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
+    private List<Boolean> Gear = new ArrayList<Boolean>();
+
     private Player current;
 
     private Phase phase = INITIALISATION;
@@ -139,6 +141,9 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
 public void addCheckpoint(boolean checkpoint){
 this.checkpoints.add(checkpoint);
+}
+public void addGear(boolean Gear){
+        this.Gear.add(Gear);
 }
 
     public Player getCurrentPlayer() {
@@ -243,7 +248,29 @@ this.checkpoints.add(checkpoint);
         //      which is counted up every time a player makes a move; the
         //      status line should show the current player and the number
         //      of the current move!
-        return "Player = " + getCurrentPlayer().getName() + ", number of moves: " + getCount();
+
+        String holdingstring = "";
+
+        for (int i = 0; i < getPlayersNumber(); i++){
+            holdingstring += getPlayer(i).getName()+ ": " + getPlayer(i).getRecentCheckpoint() + " ";
+        }
+        return holdingstring;
+        /*
+        switch(getPlayersNumber()){
+            case 2:
+                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " ";
+            case 3:
+                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " ";
+            case 4:
+                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " ";
+            case 5:
+                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " " + getPlayer(4).getName()+ ": " + getPlayer(4).getRecentCheckpoint() + " ";
+            case 6:
+                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " " + getPlayer(4).getName()+ ": " + getPlayer(4).getRecentCheckpoint() + " " + getPlayer(5).getName()+ ": " + getPlayer(5).getRecentCheckpoint() + " ";
+            default:
+                break;
+        }
+        return "??"; */
     }
     private int count;
 
