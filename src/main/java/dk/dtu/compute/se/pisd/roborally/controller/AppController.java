@@ -45,7 +45,7 @@ import java.util.Optional;
 
 /**
  * ...
- *
+ *controller that creates all the necessary things to run the RoboRally game.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

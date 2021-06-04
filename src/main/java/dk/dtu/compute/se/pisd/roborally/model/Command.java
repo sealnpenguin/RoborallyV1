@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * ...
- *
+ * This is some commands that  the commandcard is using
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

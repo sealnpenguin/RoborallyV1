@@ -5,7 +5,10 @@ import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
 
-
+/**
+ * Class to create checkpoints from 1 to x. When maximum checkpoint is reached by a player the game ends.
+ * checkpoints are placed on the board.
+ */
 
 public class CheckPoint2 extends FieldAction {
 

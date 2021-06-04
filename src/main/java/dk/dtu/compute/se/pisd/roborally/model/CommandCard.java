@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * Turns a command from the class command into a commandcard.object with name as a string.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

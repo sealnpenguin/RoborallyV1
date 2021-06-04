@@ -26,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * The GameController interacts when a player do an action
+ * int the GUI. It's the controlling part of the game.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
@@ -52,6 +53,7 @@ public class GameController {
         //     following the current player
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
+
         /*
         Player player = this.board.getCurrentPlayer();
         System.out.println(space.getPlayer());
@@ -65,6 +67,11 @@ public class GameController {
 
 
     // XXX: V2
+    /**
+     * ...
+     * This is where we initilize all the elements on the board. This
+     * is just tempoary because we should be able to load the elements from a file at some point.
+     */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -116,6 +123,10 @@ public class GameController {
     }
 
     // XXX: V2
+    /**
+     * updates when the player taps the finnish button
+     * the execute button becomes active.
+     */
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -147,6 +158,9 @@ public class GameController {
     }
 
     // XXX: V2
+    /**
+     * Makes the move the player request.
+     */
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
@@ -210,6 +224,10 @@ public class GameController {
             assert false;
         }
     }
+    /**
+     *Execute the moves the players make when they press the execute button
+     * it itterates through all players untill the players have no registers left to execute.
+     */
     public void executeCommandOptionAndContinue(@NotNull Command option){
         Player currentPlayer = board.getCurrentPlayer();
         if (currentPlayer != null && board.getPhase() == Phase.PLAYER_INTERACTION && option != null){
@@ -259,6 +277,9 @@ public class GameController {
     }
 
     // TODO Assignment V2
+    /**
+     * The moveFoward function get the player and what way they are heading and then moves them one space forward.
+     */
     public void moveForward(@NotNull Player player, Heading heading) {
         //heading = Heading.NORTH;
 
@@ -322,6 +343,9 @@ public class GameController {
     }
 
     // TODO Assignment V2
+    /**
+     * Calls the moveforward function twice.
+     */
     public void fastForward(@NotNull Player player) {
         moveForward(player, player.getHeading());
         moveForward(player, player.getHeading());

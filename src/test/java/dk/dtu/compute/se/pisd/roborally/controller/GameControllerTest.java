@@ -17,6 +17,7 @@ class GameControllerTest {
 
     private GameController gameController;
 
+
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
