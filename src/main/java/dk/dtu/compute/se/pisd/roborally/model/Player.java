@@ -102,6 +102,7 @@ int checkPointStatus = 0;
         return space;
     }
 
+
     public void setSpace(Space space) {
         Space oldSpace = this.space;
         if (space != oldSpace &&

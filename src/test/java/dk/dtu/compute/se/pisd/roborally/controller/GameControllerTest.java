@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class GameControllerTest {
 
     private final int TEST_WIDTH = 8;
@@ -79,5 +80,33 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.WEST, player.getHeading(), "Player " + player.getName() + " should be heading WEST");
         gameController.turnLeft(player);
         Assertions.assertEquals(Heading.SOUTH, player.getHeading(), "Player " + player.getName() + " should be heading SOUTH");
+    }
+
+    @Test
+    public void player_push_player() {
+        Board board = gameController.board;
+
+        Player player1 = gameController.board.getPlayer(0);
+        Player player2 = gameController.board.getPlayer(1);
+        player1.setSpace(gameController.board.getSpace(3,0));
+        player1.setHeading(Heading.SOUTH);
+        player2.setSpace(gameController.board.getSpace(3,1));
+        Assertions.assertEquals(player1, board.getSpace(3, 0).getPlayer(),   player1.getName() + " should be Space (3,0)!");
+        Assertions.assertEquals(player2, board.getSpace(3, 1).getPlayer(),   player2.getName() + " should be Space (3,1)!");
+
+        gameController.moveForward(player1, player1.getHeading());
+
+        Assertions.assertEquals(player1, board.getSpace(3,1).getPlayer(), player1.getName() + " should be at space (3,1)!");
+        Assertions.assertEquals(player2, board.getSpace(3,2).getPlayer(), player2.getName() + " should be at space (3,2)!");
+
+        //should not be able to push player through wall
+
+        board.getSpace(3,3).addWall(Heading.NORTH);
+
+        gameController.moveForward(player1, player1.getHeading());
+        Space playerCoord = player1.getSpace();
+        Assertions.assertEquals(player1, board.getSpace(3,1).getPlayer(), player1.getName() + " should be at space (3,1)!" + player1.getName() + " is at " +  playerCoord.x + "," + playerCoord.y);
+        Assertions.assertEquals(player2, board.getSpace(3,2).getPlayer(), player2.getName() + " should be at space (3,2)!" + player2.getName() + " is at " +  playerCoord.x + "," + playerCoord.y);
+
     }
 }
