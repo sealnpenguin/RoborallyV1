@@ -5,6 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.Gear;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -108,5 +109,24 @@ class GameControllerTest {
         Assertions.assertEquals(player1, board.getSpace(3,1).getPlayer(), player1.getName() + " should be at space (3,1)!" + player1.getName() + " is at " +  playerCoord.x + "," + playerCoord.y);
         Assertions.assertEquals(player2, board.getSpace(3,2).getPlayer(), player2.getName() + " should be at space (3,2)!" + player2.getName() + " is at " +  playerCoord.x + "," + playerCoord.y);
 
+    }
+    @Test
+    public void Gear(){
+        Board board = gameController.board;
+
+        Player player1 = gameController.board.getPlayer(0);
+        //Player player1 = new Player(board, "yellow", "player1");
+        player1.setHeading(Heading.SOUTH);
+        board.addGear(board.getSpace(4, 5).getActions().add(new Gear(Heading.WEST)));
+        board.addGear(board.getSpace(4, 6).getActions().add(new Gear(Heading.EAST)));
+        Assertions.assertEquals("SOUTH", player1.getHeading().toString());
+        player1.setSpace(board.getSpace(4,5));
+        Space current = player1.getSpace();
+        current.getActions().get(0).doAction(gameController,current);
+        Assertions.assertEquals("EAST", player1.getHeading().toString());
+        player1.setSpace(board.getSpace(4,6));
+        current = player1.getSpace();
+        current.getActions().get(0).doAction(gameController,current);
+        Assertions.assertEquals("SOUTH", player1.getHeading().toString());
     }
 }

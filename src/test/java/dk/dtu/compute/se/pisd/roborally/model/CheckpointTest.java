@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ModelTest {
+public class CheckpointTest {
     @Test
     public void player_has_to_go_through_checkpoints_in_order(){
         Board board = new Board(8, 8);
