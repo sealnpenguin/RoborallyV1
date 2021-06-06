@@ -327,7 +327,7 @@ class Repository implements IRepository {
 	
 	private void updatePlayersInDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectPlayersStatementU();
-		ps.setInt(1, game.getGameId());
+		ps.setInt(1, game.getGameId()+1);
 		
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
