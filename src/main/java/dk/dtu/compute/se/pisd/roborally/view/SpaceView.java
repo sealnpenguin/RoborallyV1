@@ -21,8 +21,12 @@
  */
 package dk.dtu.compute.se.pisd.roborally.view;
 
+
+
+
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -125,6 +129,8 @@ public class SpaceView extends StackPane implements ViewObserver {
                 drawObject(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
             } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint"))){
                 drawObject(space.x, space.y, "NORTH", "circle");
+            } else if(space.getActions().get(0).getClass().toString().contains(("Gear"))){
+                drawObject(space.x, space.y, ((Gear) space.getActions().get(0)).getHeading().toString(), "triangle");
             }
         }
         if (!space.getWalls().isEmpty()){
@@ -133,6 +139,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
     }
+
 //*******************************WALLS**********************************//
     void drawObject(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
@@ -146,53 +153,79 @@ public class SpaceView extends StackPane implements ViewObserver {
 
             switch (Heading){
                 case "NORTH":
-                    if(typeOfDrawing.equals("wall")){
-                        gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
-                        space.hasWallNouth = true;}
-
-                    else if(typeOfDrawing.equals("circle")) {
-                        gc.setStroke(Color.GRAY);
-                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                    } else if(typeOfDrawing.equals("square")){
-                        gc.setStroke(Color.BLUE);
-                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
+                    switch (typeOfDrawing) {
+                        case "wall":
+                            gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                            break;
+                        case "circle":
+                            gc.setStroke(Color.GRAY);
+                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                            break;
+                        case "square":
+                            gc.setStroke(Color.BLUE);
+                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            break;
+                        case "triangle":
+                            gc.setFill(Color.CRIMSON);
+                            gc.fillPolygon(new double[]{0, 75, 37.5}, new double[]{75, 75, 0}, 3);
+                            break;
                     }
                     break;
                 case "SOUTH":
-                    if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                        space.hasWallSouth = true;}
-                    else if(typeOfDrawing.equals("circle")) {
-                        gc.setStroke(Color.GRAY);
-                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                    } else if(typeOfDrawing.equals("square")){
-                        gc.setStroke(Color.BLUE);
-                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT -5);
+                    switch (typeOfDrawing) {
+                        case "wall":
+                            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            break;
+                        case "circle":
+                            gc.setStroke(Color.GRAY);
+                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                            break;
+                        case "square":
+                            gc.setStroke(Color.BLUE);
+                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            break;
                     }
 
                     break;
                 case "EAST":
-                    if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                        space.hasWallEast = true;}
-                    else if(typeOfDrawing.equals("circle")) {
-                        gc.setStroke(Color.GRAY);
-                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                    } else if(typeOfDrawing.equals("square")){
-                        gc.setStroke(Color.BLUE);
-                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
+                    switch (typeOfDrawing) {
+                        case "wall":
+                            gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            break;
+                        case "circle":
+                            gc.setStroke(Color.GRAY);
+                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                            break;
+                        case "square":
+                            gc.setStroke(Color.BLUE);
+                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                            break;
+                        case "triangle":
+                            gc.setStroke(Color.CRIMSON);
+                            gc.strokePolygon(new double[]{0, 0, 75}, new double[]{0, 75, 37.5}, 3);
+                            break;
                     }
                     break;
                 case "WEST":
-                    if(typeOfDrawing.equals("wall")){
-                    gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
-                        space.hasWallWest = true;}
-                    else if(typeOfDrawing.equals("circle")) {
-                        gc.setStroke(Color.GRAY);
-                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                    } else if(typeOfDrawing.equals("square")){
-                        gc.setStroke(Color.BLUE);
-                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT -40);
+                    switch (typeOfDrawing) {
+                        case "wall":
+                            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+                            break;
+                        case "circle":
+                            gc.setStroke(Color.GRAY);
+                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                            break;
+                        case "square":
+                            gc.setStroke(Color.BLUE);
+                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                            break;
+                        case "triangle":
+
+                            gc.setStroke(Color.CRIMSON);
+                            gc.strokePolygon(new double[]{75, 75, 0}, new double[]{75, 0, 37.5}, 3);
+
+
+                            break;
                     }
                     break;
             }
