@@ -117,6 +117,9 @@ public class GameController {
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
+        //System.out.println(board.getPlayer(0).getCardField(0).getCard().command.getOptions());
+        //board.getPlayer(1).CreateCardsNumber();
+
     }
 
     // XXX: V2

@@ -48,6 +48,8 @@ class Repository implements IRepository {
 	private static final String GAME_STEP = "step";
 	
 	private static final String PLAYER_PLAYERID = "playerID";
+
+	private static final String PLAYER_PLAYERCARDS = "playerCards";
 	
 	private static final String PLAYER_NAME = "name";
 
@@ -104,7 +106,7 @@ class Repository implements IRepository {
 				createPlayersInDB(game);
 				/* TOODO this method needs to be implemented first
 				createCardFieldsInDB(game);
-				 */
+				*/
 
 				// since current player is a foreign key, it can oly be
 				// inserted after the players are created, since MySQL does
@@ -143,7 +145,6 @@ class Repository implements IRepository {
 		}
 		return false;
 	}
-		
 	@Override
 	public boolean updateGameInDB(Board game) {
 		assert game.getGameId() != null;
@@ -226,7 +227,6 @@ class Repository implements IRepository {
 
 			game.setGameId(id);			
 			loadPlayersFromDB(game);
-
 			if (playerNo >= 0 && playerNo < game.getPlayersNumber()) {
 				game.setCurrentPlayer(game.getPlayer(playerNo));
 			} else {
@@ -269,7 +269,6 @@ class Repository implements IRepository {
 		}
 		return result;		
 	}
-
 	private void createPlayersInDB(Board game) throws SQLException {
 		// TODO code should be more defensive
 		PreparedStatement ps = getSelectPlayersStatementU();
@@ -286,6 +285,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
 			rs.insertRow();
 		}
 
@@ -312,7 +312,10 @@ class Repository implements IRepository {
 				player.setSpace(game.getSpace(x,y));
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
-
+				String playerCards = rs.getString(PLAYER_PLAYERCARDS);
+				player.setCardNumber(playerCards);
+				System.out.println(playerCards + "Dette er det den loader");
+				player.loadCards();
 				// TODO  should also load players program and hand here
 			} else {
 				// TODO error handling
@@ -332,15 +335,17 @@ class Repository implements IRepository {
 			// TODO should be more defensive
 			Player player = game.getPlayer(playerId);
 			// rs.updateString(PLAYER_NAME, player.getName()); // not needed: player's names does not change
+			System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
+			System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
 			// TODO error handling
 			// TODO take care of case when number of players changes, etc
 			rs.updateRow();
 		}
 		rs.close();
-		
 		// TODO error handling/consistency check: check whether all players were updated
 	}
 

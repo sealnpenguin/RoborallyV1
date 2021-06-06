@@ -114,8 +114,6 @@ public class AppController implements Observer {
             RepositoryAccess.getRepository().createGameInDB(gameController.board);
             LoadBoard.saveBoard(gameController.board,td.getResult());
             System.out.println("Saving");
-
-
         }
     }
 
@@ -136,6 +134,7 @@ public class AppController implements Observer {
             }
             catch(Exception e) {
                 System.out.println("No saved game! Try a new one.");
+                e.printStackTrace();
                 newGame();
             }
 

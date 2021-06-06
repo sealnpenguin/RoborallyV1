@@ -24,10 +24,12 @@ CREATE TABLE IF NOT EXISTS Player (
   positionX int,
   positionY int,
   heading tinyint,
+  playerCards varchar(50),
   
   PRIMARY KEY (gameID, playerID),
   FOREIGN KEY (gameID) REFERENCES Game(gameID)
 );;
+
 
 SET FOREIGN_KEY_CHECKS = 1;;
 

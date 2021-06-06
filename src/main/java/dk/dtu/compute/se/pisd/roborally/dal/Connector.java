@@ -31,7 +31,7 @@ import java.sql.Statement;
 
 /**
  * ...
- *
+ * 
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
@@ -41,7 +41,7 @@ class Connector {
     private static final int    PORT     = 3306;
     private static final String DATABASE = "pisu";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "jQY76o5G";
+    private static final String PASSWORD = "Ppppaddy1";
 
     private static final String DELIMITER = ";;";
     

@@ -42,5 +42,8 @@ public class CommandCard extends Subject {
         return command.displayName;
     }
 
+    public void setName(String newName) {
+         command.displayName = newName;
+    }
 
 }
