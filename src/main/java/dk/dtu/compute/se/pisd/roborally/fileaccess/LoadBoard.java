@@ -45,6 +45,7 @@ public class LoadBoard {
     private static final String JSON_EXT = "json";
 
     public static Board loadBoard(String boardname) {
+        boardname = "eujh";
         if (boardname == null) {
             boardname = DEFAULTBOARD;
         }

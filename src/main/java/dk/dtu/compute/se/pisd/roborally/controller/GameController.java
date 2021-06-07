@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 public class GameController {
 
     final public Board board;
-
+    public Space RebootToken;
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -81,7 +81,8 @@ public class GameController {
          * Definer where on the board, the specific fields shall be placed
          */
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
-       /* if (board.getTotalCheckpoints() < 1) {
+
+        if (board.getTotalCheckpoints() < 1) {
         board.getSpace(1,1).getActions().add(new ConveyorBelt());
         board.getSpace(3,1).getActions().add(new ConveyorBelt());
 
@@ -95,12 +96,12 @@ public class GameController {
         board.getSpace(6,6).getActions().add(new RebootToken());
 
         board.getSpace(1,0).getActions().add(new Pit());
-
+            RebootToken = board.findToken();
 
             board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
-            board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));*/
+            board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
 
-        //}
+        }
 
 
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.

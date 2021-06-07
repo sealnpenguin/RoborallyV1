@@ -20,13 +20,14 @@ public class Pit extends FieldAction{
 
     @Override
     public boolean doAction(@NotNull GameController gameController,@NotNull Space space){
-        gameController.moveCurrentPlayerToSpace(gameController.board.getSpace(6, 6));
+        //gameController.moveCurrentPlayerToSpace(gameController.board.getSpace(6, 6));
 
-        if(space.getPlayer() != null){
+        if (gameController.RebootToken.getPlayer() != null){
+            gameController.pushPlayer(gameController.RebootToken.getPlayer(), gameController.RebootToken.getPlayer().getHeading());
             gameController.moveCurrentPlayerToSpace(gameController.board.getSpace(6, 6));
-
-        } else {
-            gameController.pushPlayer(space.getPlayer(), this.getHeading());
+        }
+        else{
+            gameController.moveCurrentPlayerToSpace(gameController.board.getSpace(6, 6));
         }
 
         return false;

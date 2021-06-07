@@ -89,6 +89,21 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
         //this.stepModex = false;
     }
 
+    public Space findToken(){
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                try {
+                    if (getSpace(i, j).getActions().get(0).getClass().toString().contains("RebootToken")) {
+                        return getSpace(i, j);
+                    }
+                }
+                catch (IndexOutOfBoundsException e)  {
+                    continue;
+                }
+            }
+        }
+        return null;
+    }
     public Board(int width, int height) {
         this(width, height, "defaultboard");
     }
