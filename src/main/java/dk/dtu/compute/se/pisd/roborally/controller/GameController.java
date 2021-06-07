@@ -45,6 +45,7 @@ public class GameController {
      *
      * @param space the space to which the current player should move
      */
+    //Testes for Pit og RebootToken
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
@@ -54,7 +55,7 @@ public class GameController {
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
 
-        /*
+
         Player player = this.board.getCurrentPlayer();
         System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
@@ -62,9 +63,8 @@ public class GameController {
             board.increaseCounter();
             this.board.setCurrentPlayer(this.board.getPlayer(board.getCounter() % board.getPlayersNumber()));
             board.setCount(board.getCount() + 1);
-        }*/
+        }
     }
-
 
     // XXX: V2
     /**
@@ -77,17 +77,24 @@ public class GameController {
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
 
+        /**
+         * Definer where on the board, the specific fields shall be placed
+         */
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
        /* if (board.getTotalCheckpoints() < 1) {
         board.getSpace(1,1).getActions().add(new ConveyorBelt());
         board.getSpace(3,1).getActions().add(new ConveyorBelt());
+
         board.getSpace(4, 2).addWall(Heading.SOUTH);
-        board.getSpace(4,2).addWall(Heading.NORTH);
+        board.getSpace(5,2).addWall(Heading.NORTH);
 
         board.addGear(board.getSpace(4, 5).getActions().add(new Gear(Heading.WEST)));
         board.addGear(board.getSpace(4, 6).getActions().add(new Gear(Heading.EAST)));
 
 
+        board.getSpace(6,6).getActions().add(new RebootToken());
+
+        board.getSpace(1,0).getActions().add(new Pit());
 
 
             board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));

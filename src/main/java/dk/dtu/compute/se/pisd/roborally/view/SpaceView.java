@@ -155,81 +155,88 @@ public class SpaceView extends StackPane implements ViewObserver {
             gc.setLineCap(StrokeLineCap.ROUND);
 
 
-            switch (Heading){
+            switch (Heading) {
                 case "NORTH":
-                    switch (typeOfDrawing) {
-                        case "wall":
-                            gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
-                            break;
-                        case "circle":
-                            gc.setStroke(Color.GRAY);
-                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                            break;
-                        case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
-                            break;
-                        case "triangle":
-                            gc.setFill(Color.CRIMSON);
-                            gc.fillPolygon(new double[]{0, 75, 37.5}, new double[]{75, 75, 0}, 3);
-                            break;
+                    if (typeOfDrawing.equals("wall")) {
+                        gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                        space.hasWallNouth = true;
+                    } else if (typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("square")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("triangle")) {
+                        gc.setFill(Color.CRIMSON);
+                        // gc.fillPolygon(new double[]{0, 75, 37.5}, new double[]{75, 75, 0}, 3);}
+                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("HexagonRed")) {
+                        gc.setStroke(Color.RED);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("Hexagon")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
                     }
                     break;
                 case "SOUTH":
-                    switch (typeOfDrawing) {
-                        case "wall":
-                            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            break;
-                        case "circle":
-                            gc.setStroke(Color.GRAY);
-                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                            break;
-                        case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
-                            break;
+                    if (typeOfDrawing.equals("wall")) {
+                        gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                        space.hasWallSouth = true;
+                    } else if (typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("square")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("Hexagon")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
                     }
 
                     break;
                 case "EAST":
-                    switch (typeOfDrawing) {
-                        case "wall":
-                            gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            break;
-                        case "circle":
-                            gc.setStroke(Color.GRAY);
-                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                            break;
-                        case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
-                            break;
-                        case "triangle":
-                            gc.setStroke(Color.CRIMSON);
-                            gc.strokePolygon(new double[]{0, 0, 75}, new double[]{0, 75, 37.5}, 3);
-                            break;
+                    if (typeOfDrawing.equals("wall")) {
+                        gc.strokeLine(65, SPACE_HEIGHT - 800, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                        space.hasWallEast = true;
+                    } else if (typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("square")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                    } else if (typeOfDrawing.equals("Hexagon")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("HexagonRed")) {
+                        gc.setStroke(Color.RED);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("triangle")) {
+                        gc.setStroke(Color.CRIMSON);
+                        gc.strokePolygon(new double[]{0, 0, 75}, new double[]{0, 75, 37.5}, 3);
                     }
                     break;
                 case "WEST":
-                    switch (typeOfDrawing) {
-                        case "wall":
-                            gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
-                            break;
-                        case "circle":
-                            gc.setStroke(Color.GRAY);
-                            gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
-                            break;
-                        case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
-                            break;
-                        case "triangle":
+                    if (typeOfDrawing.equals("wall")) {
+                        gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 65, SPACE_HEIGHT - 800);
+                        space.hasWallWest = true;
+                    } else if (typeOfDrawing.equals("circle")) {
+                        gc.setStroke(Color.GRAY);
+                        gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("square")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                    } else if (typeOfDrawing.equals("Hexagon")) {
+                        gc.setStroke(Color.BLUE);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("HexagonRed")) {
+                        gc.setStroke(Color.RED);
+                        gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                    } else if (typeOfDrawing.equals("triangle")) {
 
-                            gc.setStroke(Color.CRIMSON);
-                            gc.strokePolygon(new double[]{75, 75, 0}, new double[]{75, 0, 37.5}, 3);
+                        gc.setStroke(Color.CRIMSON);
+                        gc.strokePolygon(new double[]{75, 75, 0}, new double[]{75, 0, 37.5}, 3);
 
 
-                            break;
                     }
                     break;
             }

@@ -38,7 +38,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
-import jdk.jfr.internal.Repository;
+// Denne er udkommenteret. Ikke sikker på den skal være det.
+//import jdk.jfr.internal.Repository;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Array;
