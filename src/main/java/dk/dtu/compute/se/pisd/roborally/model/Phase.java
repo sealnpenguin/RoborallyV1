@@ -23,7 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
  * ...
- *
+ * This is a enum that shows all the phases a player goes through each turn.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

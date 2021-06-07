@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * The visualisation of the entire board and different parts.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

@@ -31,7 +31,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 
 /**
  * ...
- *
+ * Creates board with spaces,and players. It extends Subject which is the observer that notifies the GUI when something is changed.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
@@ -46,7 +46,7 @@ public class Board extends Subject {
 
     public final int height;
 
-    public final String boardName;
+    public String boardName;
 
     private Integer gameId;
 
@@ -281,6 +281,7 @@ public void addGear(boolean Gear){
         return count;
     }
 
+    public String getBoardName(){return boardName;}
     public void setCount(int count) {
         //only updates when it is necessary
         if (this.count != count) {

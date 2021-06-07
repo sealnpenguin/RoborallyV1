@@ -90,6 +90,20 @@ public class Space extends Subject {
     public void addWall(Heading head){
         if (!walls.contains(head)){
         walls.add(head);
+        switch(head){
+            case NORTH:
+                hasWallNouth = true;
+                break;
+            case EAST:
+                hasWallEast = true;
+                break;
+            case WEST:
+                hasWallWest = true;
+                break;
+            case SOUTH:
+                hasWallSouth = true;
+                break;
+            }
         notifyChange();
         }
     }

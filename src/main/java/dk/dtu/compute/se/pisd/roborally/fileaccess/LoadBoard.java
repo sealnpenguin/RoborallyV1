@@ -48,7 +48,6 @@ public class LoadBoard {
         if (boardname == null) {
             boardname = DEFAULTBOARD;
         }
-
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
@@ -68,7 +67,6 @@ public class LoadBoard {
 			// fileReader = new FileReader(filename);
 			reader = gson.newJsonReader(new InputStreamReader(inputStream));
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
-
 			result = new Board(template.width, template.height);
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
@@ -99,7 +97,7 @@ public class LoadBoard {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
-
+        name = board.getBoardName();
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);

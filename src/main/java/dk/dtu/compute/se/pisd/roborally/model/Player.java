@@ -24,6 +24,8 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
@@ -47,6 +49,7 @@ public class Player extends Subject {
     private String color;
     private int recentCheckpoint;
 
+    private String CardsNumber;
     private Space space;
     private Heading heading = SOUTH;
 
@@ -102,6 +105,7 @@ int checkPointStatus = 0;
         return space;
     }
 
+
     public void setSpace(Space space) {
         Space oldSpace = this.space;
         if (space != oldSpace &&
@@ -147,6 +151,76 @@ int checkPointStatus = 0;
 
     public CommandCardField getCardField(int i) {
         return cards[i];
+    }
+
+    public String CreateCardsNumber(){
+        ArrayList<Integer> values = new ArrayList<>();
+        for (int i = 0; i < cards.length; i++) {
+            if(getCardField(i).getCard() == null){
+                values.add(0);
+            }
+            else if(getCardField(i).getCard().getName() == "Fwd"){
+                values.add(1);
+            }
+            else if(getCardField(i).getCard().getName() == "Turn Right"){
+                values.add(2);
+            }
+            else if(getCardField(i).getCard().getName() == "Turn Left"){
+                values.add(3);
+            }
+            else if(getCardField(i).getCard().getName() == "Fast Fwd"){
+                values.add(4);
+            }
+            else if(getCardField(i).getCard().getName() == "Left OR Right"){
+                values.add(5);
+            }
+        }
+        CardsNumber = values.toString();
+        CardsNumber = CardsNumber.replace("[", "");
+        CardsNumber = CardsNumber.replace("]", "");
+        CardsNumber = CardsNumber.replace(", ", "");
+        System.out.println(CardsNumber + " Gemmer dette ");
+        return CardsNumber;
+    }
+
+    public void setCardNumber(String newString){
+        CardsNumber = newString;
+    }
+
+    public void loadCards(){
+        //System.out.println(CardsNumber.length());
+        for (int i = 0; i < CardsNumber.length(); i++) {
+            if(CardsNumber.charAt(i) == '0'){
+
+            }
+            else if(CardsNumber.charAt(i) == '1'){
+                //getCardField(0).getCard().setName("Fwd");
+                //getCardField(0).setVisible(true);
+                //System.out.println(getCardField(0).getCard().command.getOptions());
+                getCardField(i).setCard(new CommandCard(Command.FORWARD));
+                //Command[] commands = Command.values();
+
+                //Command command = new Command("Fwd", commands);
+
+            }
+            else if(CardsNumber.charAt(i) == '2'){
+                //getCardField(i).getCard().setName("Turn Right");
+                getCardField(i).setCard(new CommandCard(Command.RIGHT));
+            }
+            else if(CardsNumber.charAt(i) == '3'){
+                //getCardField(i).getCard().setName("Turn Left");
+                getCardField(i).setCard(new CommandCard(Command.LEFT));
+            }
+            else if(CardsNumber.charAt(i) == '4'){
+                //getCardField(i).getCard().setName("Fast Fwd");
+                getCardField(i).setCard(new CommandCard(Command.FAST_FORWARD));
+            }
+            else if(CardsNumber.charAt(i) == '5'){
+                //getCardField(i).getCard().setName("Left OR Right");
+                getCardField(i).setCard(new CommandCard(Command.OPTION_LEFT_RIGHT));
+            }
+
+        }
     }
 
 }

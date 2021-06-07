@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
- *
+ * This is how the card fields looks in the GUI
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

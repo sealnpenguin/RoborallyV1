@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * ...
- *
+ * This is some commands that  the commandcard is using
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
@@ -45,7 +45,7 @@ public enum Command {
     // XXX Assignment V3
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
-    final public String displayName;
+    public String displayName;
 
     // XXX Assignment V3
     // Command(String displayName) {

@@ -31,7 +31,7 @@ import java.sql.Statement;
 
 /**
  * ...
- *
+ * 
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */

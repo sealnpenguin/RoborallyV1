@@ -23,7 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
  * ...
- *
+ * Enum that shows 4 different directions the player can turn towards.
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
