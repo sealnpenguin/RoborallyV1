@@ -128,6 +128,7 @@ public class GameController {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
         return new CommandCard(commands[random]);
+
     }
 
     // XXX: V2
@@ -315,7 +316,7 @@ public class GameController {
                             if(target.getPlayer() != null){
                                 moveForward(target.getPlayer(), player.getHeading());
                             }
-                            if(target.getPlayer() == null){
+                            else if(target.getPlayer() == null){
                                 player.setSpace(target);
                             }
                         } break;
@@ -339,6 +340,20 @@ public class GameController {
                                 player.setSpace(target);
                             }
                         } break;
+                }
+            } else {
+                //if(target.getPlayer() != null) moveForward(target.getPlayer(), player.getHeading());
+                if (RebootToken.getPlayer() != null){
+                    pushPlayer(RebootToken.getPlayer(), RebootToken.getPlayer().getHeading());
+                    moveCurrentPlayerToSpace(RebootToken);
+                    ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
+                }
+                else{
+                    //Space space = board.getSpace(target.x, target.y);
+                    current.getPlayer().setSpace(RebootToken);
+                    //pushPlayer(current.getPlayer(), current.getPlayer().getHeading());
+                    //moveCurrentPlayerToSpace(RebootToken);
+                    ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
                 }
             }
 

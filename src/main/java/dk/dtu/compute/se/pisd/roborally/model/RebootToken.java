@@ -12,9 +12,15 @@ public class RebootToken extends FieldAction{
 
     @Override
     public boolean doAction(GameController gameController, Space space){
-        Player player = space.getPlayer();
+        //Player player = space.getPlayer();
         //Skal fjerne de resterende kort i den pågældende runde
-
+        //player.getProgramField(0).setCard(null);
         return true;
+    }
+
+    public void destoyProgrammingCards(Player player){
+        for (int i = 0; i < 5; i++) {
+           player.getProgramField(i).setCard(null);
+        }
     }
 }
