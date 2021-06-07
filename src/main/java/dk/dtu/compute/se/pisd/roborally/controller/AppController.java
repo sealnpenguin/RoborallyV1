@@ -55,6 +55,7 @@ public class AppController implements Observer {
     final private List<String> LOAD_OPTIONS = new ArrayList<>();
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
+    final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD");
 
     final private RoboRally roboRally;
 
@@ -82,7 +83,17 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = LoadBoard.loadBoard(null);
+            // her fra
+            /* choose board */
+            ChoiceDialog<String> mapDialog = new ChoiceDialog<String>(Map_OPTIONS.get(0), Map_OPTIONS);
+            mapDialog.setTitle("Maps");
+            mapDialog.setHeaderText("Select a map");
+             mapDialog.showAndWait(); //necessary .showAndWait() to get result
+
+
+            // hertil
+
+            Board board = LoadBoard.loadBoard(mapDialog.getResult());
             System.out.println(board.getBoardName());
             gameController = new GameController(board);
             int no = result.get();
