@@ -70,7 +70,7 @@ class Repository implements IRepository {
 	}
 
 	@Override
-	public boolean createGameInDB(Board game) {
+	public boolean createGameInDB(Board game, String filename) {
 		if (game.getGameId() == null) {
 			Connection connection = connector.getConnection();
 			try {
@@ -80,7 +80,7 @@ class Repository implements IRepository {
 				// TODO: the name should eventually set by the user
 				//       for the game and should be then used 
 				//       game.getName();
-				ps.setString(1, game.getBoardName()/*"Date: " +  new Date()*/); // instead of name
+				ps.setString(1, filename/*"Date: " +  new Date()*/); // instead of name
 				ps.setNull(2, Types.TINYINT); // game.getPlayerNumber(game.getCurrentPlayer())); is inserted after players!
 				ps.setInt(3, game.getPhase().ordinal());
 				ps.setInt(4, game.getStep());
@@ -211,10 +211,16 @@ class Repository implements IRepository {
 				// game = new Board(width,height);
 				// TODO and we should also store the used game board in the database
 				//      for now, we use the default game board
-				game = LoadBoard.loadBoard(RepositoryAccess.getRepository().getGames().get(id).name);
-				if (game == null) {
+				if (RepositoryAccess.getRepository().getGames().get(id).name.endsWith("(defaultboard)")){
+					game = LoadBoard.loadBoard("defaultboard");
+				}
+				else if (RepositoryAccess.getRepository().getGames().get(id).name.endsWith("(NYBOARD)")){
+					game = LoadBoard.loadBoard("NYBOARD");
+				}
+				else {
 					return null;
 				}
+
 				playerNo = rs.getInt(GAME_CURRENTPLAYER);
 				// TODO currently we do not set the games name (needs to be added)
 				game.setPhase(Phase.values()[rs.getInt(GAME_PHASE)]);

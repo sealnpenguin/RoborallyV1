@@ -94,6 +94,7 @@ public class AppController implements Observer {
             // hertil
 
             Board board = LoadBoard.loadBoard(mapDialog.getResult());
+            board.boardName = mapDialog.getResult();
             System.out.println(board.getBoardName());
             gameController = new GameController(board);
             int no = result.get();
@@ -121,9 +122,11 @@ public class AppController implements Observer {
             System.out.println("Updating save");
         } catch (Exception e) {
             TextInputDialog td = new TextInputDialog("Name your save");
-            gameController.board.boardName =td.showAndWait().get();
-            RepositoryAccess.getRepository().createGameInDB(gameController.board);
-            LoadBoard.saveBoard(gameController.board,td.getResult());
+            td.showAndWait();
+            String filename = td.getResult();
+            filename += " (" + gameController.board.getBoardName() + ")";
+            RepositoryAccess.getRepository().createGameInDB(gameController.board, filename);
+            LoadBoard.saveBoard(gameController.board,filename);
             System.out.println("Saving");
         }
     }
