@@ -194,10 +194,7 @@ public class GameController {
         Player currentPlayer = board.getCurrentPlayer();
         Space current = currentPlayer.getSpace();
 
-        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
-        if(current.getActions().size() != 0){
-            current.getActions().get(0).doAction(this,current);
-        } // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
+         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
@@ -209,7 +206,13 @@ public class GameController {
                         board.setPhase(Phase.PLAYER_INTERACTION);
                         return;
                     }
+                    //Fires commandcard
                     executeCommand(currentPlayer, command);
+                }
+                // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG. Fires if activiation field
+                current = currentPlayer.getSpace();
+                if(current.getActions().size() != 0){
+                    current.getActions().get(0).doAction(this,current);
                 }
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
                 if (nextPlayerNumber < board.getPlayersNumber()) {
