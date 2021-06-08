@@ -82,7 +82,7 @@ public class GameController {
          */
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
-        if (board.getTotalCheckpoints() < 1) {
+        /*if (board.getTotalCheckpoints() < 1) {
         board.getSpace(1,1).getActions().add(new ConveyorBelt());
         board.getSpace(3,1).getActions().add(new ConveyorBelt());
 
@@ -101,9 +101,9 @@ public class GameController {
             board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
             board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
 
-        }
+        }*/
 
-
+        RebootToken = board.findToken();
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -343,17 +343,20 @@ public class GameController {
                 }
             } else {
                 //if(target.getPlayer() != null) moveForward(target.getPlayer(), player.getHeading());
-                if (RebootToken.getPlayer() != null){
-                    pushPlayer(RebootToken.getPlayer(), RebootToken.getPlayer().getHeading());
-                    moveCurrentPlayerToSpace(RebootToken);
-                    ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
-                }
-                else{
-                    //Space space = board.getSpace(target.x, target.y);
-                    current.getPlayer().setSpace(RebootToken);
-                    //pushPlayer(current.getPlayer(), current.getPlayer().getHeading());
-                    //moveCurrentPlayerToSpace(RebootToken);
-                    ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
+                try {
+                    if (RebootToken.getPlayer() != null) {
+                        pushPlayer(RebootToken.getPlayer(), RebootToken.getPlayer().getHeading());
+                        moveCurrentPlayerToSpace(RebootToken);
+                        ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
+                    } else {
+                        //Space space = board.getSpace(target.x, target.y);
+                        current.getPlayer().setSpace(RebootToken);
+                        //pushPlayer(current.getPlayer(), current.getPlayer().getHeading());
+                        //moveCurrentPlayerToSpace(RebootToken);
+                        ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
+                    }
+                } catch(NullPointerException e){
+                    System.out.println("No RebootToken in this map");
                 }
             }
 

@@ -56,7 +56,7 @@ public class AppController implements Observer {
     final private List<String> LOAD_OPTIONS = new ArrayList<>();
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-    final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD");
+    final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD","EXTRA CRISPY");
 
     final private RoboRally roboRally;
 

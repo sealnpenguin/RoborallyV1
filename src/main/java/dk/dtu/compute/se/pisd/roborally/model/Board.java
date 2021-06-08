@@ -90,8 +90,8 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
     }
 
     public Space findToken(){
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < this.width; i++){
+            for (int j = 0; j < this.height; j++) {
                 try {
                     if (getSpace(i, j).getActions().get(0).getClass().toString().contains("RebootToken")) {
                         return getSpace(i, j);

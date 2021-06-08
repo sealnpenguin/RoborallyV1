@@ -28,9 +28,12 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -38,7 +41,12 @@ import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * ...
@@ -70,9 +78,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMaxHeight(SPACE_HEIGHT);
 
         if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: white;");
+            this.setStyle("-fx-background-color: #b3b1b1;");
         } else {
-            this.setStyle("-fx-background-color: black;");
+            this.setStyle("-fx-background-color: #9b9a9a;");
         }
 
         // updatePlayer();
@@ -106,24 +114,12 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updatePlayer();
         }
-        drawAll();
-        /*for (int i = 0; i < 8; i++) {
-            DrawWall(i,0,"NORTH","wall");
-            DrawWall(i,7,"SOUTH", "wall");
-        }
-        for (int i = 0; i < 8; i++) {
-            DrawWall(0,i,"WEST", "wall");
-            DrawWall(7,i,"EAST", "wall");
-        }
-        //DrawWall(0,0,"North");
-        DrawWall(3,3,"SOUTH", "wall");*/
+        try {
+            drawAll();
 
+        } catch (IllegalArgumentException e){
 
-        // Hardcoded which spaces contain CheckPoints
-        /*if ((space.x == 1 && space.y == 1) || (space.x == 4 && space.y == 7) || (space.x == 5 && space.y == 3)){
-            check.createCheckPoint(gc);
-            this.getChildren().add(canvas);
-        }*/
+        }
     }
     
     public void drawAll(){
@@ -139,7 +135,21 @@ public class SpaceView extends StackPane implements ViewObserver {
             }else if (space.getActions().get(0).getClass().toString().contains(("RebootToken"))){
                 drawObject(space.x, space.y, "NORTH", "Hexagon");
             }
+            // Due to the implementation we have draw the player once more when he's standing on a field with actions, otherwise player is drawn underneath.
+            if(space.getPlayer() != null){
+                Polygon arrow = new Polygon(0.0, 0.0,
+                        10.0, 20.0,
+                        20.0, 0.0);
+                try {
+                    arrow.setFill(Color.valueOf(space.getPlayer().getColor()));
+                } catch (Exception e) {
+                    arrow.setFill(Color.MEDIUMPURPLE);
+                }
+                arrow.setRotate((90 * space.getPlayer().getHeading().ordinal()) % 360);
+                this.getChildren().add(arrow);
+            }
         }
+
         if (!space.getWalls().isEmpty()){
             for (Heading wallPos : space.getWalls()){
                     drawObject(space.x, space.y, wallPos.toString(), "wall");
@@ -150,13 +160,33 @@ public class SpaceView extends StackPane implements ViewObserver {
 //*******************************WALLS**********************************//
     void drawObject(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
-            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
 
-            GraphicsContext gc = canvas.getGraphicsContext2D();
+            BufferedImage conImage = null;
+            BufferedImage conImageLeft = null;
+            BufferedImage conImageRight = null;
+            BufferedImage conImageDown = null;
+            BufferedImage gearImageLeft = null;
+            BufferedImage gearImageRight = null;
+            try {
+                conImage = ImageIO.read(this.getClass().getResource("/images/concon.png"));
+                conImageLeft = ImageIO.read(this.getClass().getResource("/images/conconLeft.png"));
+                conImageRight = ImageIO.read(this.getClass().getResource("/images/conconRight.png"));
+                conImageDown = ImageIO.read(this.getClass().getResource("/images/conconDown.png"));
+                gearImageLeft = ImageIO.read(this.getClass().getResource("/images/gearLeft.png"));
+                gearImageRight = ImageIO.read(this.getClass().getResource("/images/gearRight.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Image conveyorUp = SwingFXUtils.toFXImage(conImage, null);
+            Image conveyorLeft = SwingFXUtils.toFXImage(conImageLeft, null);
+            Image conveyorRight = SwingFXUtils.toFXImage(conImageRight, null);
+            Image conveyorDown = SwingFXUtils.toFXImage(conImageDown, null);
+            Image gearLeft = SwingFXUtils.toFXImage(gearImageLeft, null);
+            Image gearRight = SwingFXUtils.toFXImage(gearImageRight, null);
             gc.setStroke(Color.RED);
             gc.setLineWidth(5);
             gc.setLineCap(StrokeLineCap.ROUND);
-
 
             switch (Heading) {
                 case "NORTH":
@@ -170,13 +200,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
                             break;
                         case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
-                            break;
-                        case "triangle":
-                            gc.setFill(Color.CRIMSON);
-                            // gc.fillPolygon(new double[]{0, 75, 37.5}, new double[]{75, 75, 0}, 3);}
-                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(conveyorUp,7.5,7.5,60,60);
                             break;
                         case "HexagonRed":
                             gc.setStroke(Color.RED);
@@ -199,8 +223,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
                             break;
                         case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(20, 2, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(conveyorDown,7.5,7.5,60,60);
                             break;
                         case "Hexagon":
                             gc.setStroke(Color.BLUE);
@@ -220,8 +243,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
                             break;
                         case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                            gc.drawImage(conveyorRight,7.5,7.5,60,60);
                             break;
                         case "Hexagon":
                             gc.setStroke(Color.BLUE);
@@ -232,8 +254,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
                             break;
                         case "triangle":
-                            gc.setStroke(Color.CRIMSON);
-                            gc.strokePolygon(new double[]{0, 0, 75}, new double[]{0, 75, 37.5}, 3);
+                            gc.drawImage(gearRight,10,10,60,60);
                             break;
                     }
                     break;
@@ -248,8 +269,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeOval(3, 3, SPACE_WIDTH - 5, SPACE_HEIGHT - 5);
                             break;
                         case "square":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRect(2, 20, SPACE_WIDTH - 5, SPACE_HEIGHT - 40);
+                            gc.drawImage(conveyorLeft,7.5,7.5,60,60);
                             break;
                         case "Hexagon":
                             gc.setStroke(Color.BLUE);
@@ -260,11 +280,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
                             break;
                         case "triangle":
-
-                            gc.setStroke(Color.CRIMSON);
-                            gc.strokePolygon(new double[]{75, 75, 0}, new double[]{75, 0, 37.5}, 3);
-
-
+                            gc.drawImage(gearLeft,10,10,60,60);
                             break;
                     }
                     break;
