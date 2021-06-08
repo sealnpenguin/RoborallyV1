@@ -217,6 +217,9 @@ class Repository implements IRepository {
 				else if (RepositoryAccess.getRepository().getGames().get(id).name.endsWith("(NYBOARD)")){
 					game = LoadBoard.loadBoard("NYBOARD");
 				}
+				else if (RepositoryAccess.getRepository().getGames().get(id).name.endsWith("(EXTRA CRISPY)")) {
+					game = LoadBoard.loadBoard("EXTRA CRISPY");
+				}
 				else {
 					return null;
 				}

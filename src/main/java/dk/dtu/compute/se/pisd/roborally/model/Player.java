@@ -60,7 +60,7 @@ public class Player extends Subject {
         this.board = board;
         this.name = name;
         this.color = color;
-int checkPointStatus = 0;
+        int checkPointStatus = 0;
 
         this.space = null;
 
@@ -179,7 +179,7 @@ int checkPointStatus = 0;
         CardsNumber = CardsNumber.replace("[", "");
         CardsNumber = CardsNumber.replace("]", "");
         CardsNumber = CardsNumber.replace(", ", "");
-        System.out.println(CardsNumber + " Gemmer dette ");
+        //System.out.println(CardsNumber + " Gemmer dette ");
         return CardsNumber;
     }
 
@@ -188,36 +188,25 @@ int checkPointStatus = 0;
     }
 
     public void loadCards(){
-        //System.out.println(CardsNumber.length());
         for (int i = 0; i < CardsNumber.length(); i++) {
-            if(CardsNumber.charAt(i) == '0'){
-
-            }
-            else if(CardsNumber.charAt(i) == '1'){
-                //getCardField(0).getCard().setName("Fwd");
-                //getCardField(0).setVisible(true);
-                //System.out.println(getCardField(0).getCard().command.getOptions());
-                getCardField(i).setCard(new CommandCard(Command.FORWARD));
-                //Command[] commands = Command.values();
-
-                //Command command = new Command("Fwd", commands);
-
-            }
-            else if(CardsNumber.charAt(i) == '2'){
-                //getCardField(i).getCard().setName("Turn Right");
-                getCardField(i).setCard(new CommandCard(Command.RIGHT));
-            }
-            else if(CardsNumber.charAt(i) == '3'){
-                //getCardField(i).getCard().setName("Turn Left");
-                getCardField(i).setCard(new CommandCard(Command.LEFT));
-            }
-            else if(CardsNumber.charAt(i) == '4'){
-                //getCardField(i).getCard().setName("Fast Fwd");
-                getCardField(i).setCard(new CommandCard(Command.FAST_FORWARD));
-            }
-            else if(CardsNumber.charAt(i) == '5'){
-                //getCardField(i).getCard().setName("Left OR Right");
-                getCardField(i).setCard(new CommandCard(Command.OPTION_LEFT_RIGHT));
+            switch (CardsNumber.charAt(i)) {
+                case '0':
+                    break;
+                case '1':
+                    getCardField(i).setCard(new CommandCard(Command.FORWARD));
+                    break;
+                case '2':
+                    getCardField(i).setCard(new CommandCard(Command.RIGHT));
+                    break;
+                case '3':
+                    getCardField(i).setCard(new CommandCard(Command.LEFT));
+                    break;
+                case '4':
+                    getCardField(i).setCard(new CommandCard(Command.FAST_FORWARD));
+                    break;
+                case '5':
+                    getCardField(i).setCard(new CommandCard(Command.OPTION_LEFT_RIGHT));
+                    break;
             }
 
         }
