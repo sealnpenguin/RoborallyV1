@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
@@ -55,6 +56,7 @@ public class Board extends Subject {
     private final List<Player> players = new ArrayList<>();
     //martin
 private List<Boolean> checkpoints = new ArrayList<Boolean>();
+
 
     private List<Boolean> Gear = new ArrayList<Boolean>();
 
@@ -126,6 +128,7 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
             }
         }
     }
+
 
     public Space getSpace(int x, int y) {
         if (x >= 0 && x < width &&

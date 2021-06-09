@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
@@ -93,8 +94,6 @@ public class PlayerView extends Tab implements ViewObserver {
         //      refactored.
 
         // XXX the respective GameController operations are not yet implemented
-        StartButton = new Button("Start Game");
-        StartButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
         finishButton = new Button("Finish Programming");
         finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
@@ -105,7 +104,7 @@ public class PlayerView extends Tab implements ViewObserver {
         stepButton = new Button("Execute Current Register");
         stepButton.setOnAction( e-> gameController.executeStep());
 
-        buttonPanel = new VBox(finishButton, executeButton, stepButton, StartButton);
+        buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
         buttonPanel.setSpacing(3.0);
         // programPane.add(buttonPanel, Player.NO_REGISTERS, 0); done in update now
@@ -172,7 +171,7 @@ public class PlayerView extends Tab implements ViewObserver {
                 }
                 switch (player.board.getPhase()) {
                     case INITIALISATION:
-                        StartButton.setVisible(false);
+
                         finishButton.setDisable(true);
                         // XXX just to make sure that there is a way for the player to get
                         //     from the initialization phase to the programming phase somehow!
@@ -182,7 +181,7 @@ public class PlayerView extends Tab implements ViewObserver {
                         break;
 
                     case PROGRAMMING:
-                        StartButton.setVisible(false);
+
                         finishButton.setDisable(false);
                         executeButton.setDisable(true);
                         stepButton.setDisable(true);
@@ -190,16 +189,12 @@ public class PlayerView extends Tab implements ViewObserver {
                         break;
 
                     case ACTIVATION:
-                        StartButton.setVisible(false);
+
                         finishButton.setDisable(true);
                         executeButton.setDisable(false);
                         stepButton.setDisable(false);
                         break;
-                    case STARTUP:
-                        StartButton.setVisible(true);
-                        finishButton.setVisible(false);
-                        executeButton.setVisible(false);
-                        stepButton.setVisible(false);
+
 
 
                     default:

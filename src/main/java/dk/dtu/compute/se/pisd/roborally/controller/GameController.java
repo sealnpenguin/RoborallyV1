@@ -22,7 +22,14 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * ...
@@ -33,6 +40,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class GameController {
 
+    private List<Space> startingSpot = new ArrayList<>();
+    private List<Integer> startSpotInt = new ArrayList<>();
     final public Board board;
     public Space RebootToken;
     public GameController(@NotNull Board board) {
@@ -98,10 +107,11 @@ public class GameController {
 
         board.getSpace(1,0).getActions().add(new Pit());
             RebootToken = board.findToken();
-*/
-           /* board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
+
+            board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
             board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
 */
+           // board.getSpace(6,1).getActions().add(new StartField(0));
         }
 
         RebootToken = board.findToken();
@@ -146,6 +156,43 @@ public class GameController {
         board.setStep(0);
     }
 
+    public void selectstartposition(){
+        int k = 0;
+        while(k < 6) {
+
+            for (int i = 0; i < board.width; i++) {
+                for (int j = 0; j < board.height; j++) {
+                    try {
+                        if (board.getSpace(i, j).getActions().get(0).getClass().toString().contains("StartField") && ((StartField) board.getSpace(i, j).getActions().get(0)).number == k) {
+                            startingSpot.add(board.getSpace(i, j));
+                            k++;
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                        continue;
+                    }
+
+                }
+
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            startSpotInt.add(i);
+        }
+         for (int i = 0; i < board.getPlayersNumber(); i++) {
+            ChoiceDialog<Integer> options = new ChoiceDialog<>(startSpotInt.get(0), startSpotInt);
+            options.setTitle("Player number " + i+1);
+            options.setHeaderText("Select starting space");
+            Optional<Integer> result = options.showAndWait();
+
+            board.getPlayer(i).setSpace(startingSpot.get(result.get()));
+             System.out.println(options.getResult());
+             startSpotInt.remove(options.getResult());
+        }
+
+
+
+    }
+
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
@@ -176,6 +223,13 @@ public class GameController {
         board.setStepMode(false);
         continuePrograms();
     }
+    /*public void selectStartPos(){
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+
+        }
+        ChoiceDialog<>
+    }*/
 
     // XXX: V2
     public void executeStep() {

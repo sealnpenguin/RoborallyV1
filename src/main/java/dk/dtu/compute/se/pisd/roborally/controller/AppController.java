@@ -31,6 +31,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.CheckPoint2;
+import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -104,7 +105,7 @@ public class AppController implements Observer {
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
+                //player.setSpace(board.getSpace(i % board.width, i));
             }
 
             for (int i = 0; i <board.width; i++) {
@@ -119,22 +120,20 @@ public class AppController implements Observer {
                 }
 
             }
-
-
-
-
-
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
 
             gameController.startProgrammingPhase();
             roboRally.createBoardView(gameController);
+            gameController.selectstartposition();
             //board.setPhase(Phase.STARTUP);
 
 
 
         }
     }
+
+
 
     public void saveGame() {
         // XXX needs to be implemented eventually
@@ -154,6 +153,7 @@ public class AppController implements Observer {
             System.out.println("Saving");
         }
     }
+
 
     public void loadGame() {
         // Anne Sophie - Can only load the first six saved games (hardcoded)
