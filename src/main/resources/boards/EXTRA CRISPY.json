@@ -617,6 +617,78 @@
         }],
       "x": 1,
       "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 0
+          }
+        }],
+      "x": 1,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 1
+          }
+        }],
+      "x": 0,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 2
+          }
+        }],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 3
+          }
+        }],
+      "x": 1,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 4
+          }
+        }],
+      "x": 0,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartField",
+          "INSTANCE": {
+            "number": 5
+          }
+        }],
+      "x": 1,
+      "y": 8
     }
 
   ]

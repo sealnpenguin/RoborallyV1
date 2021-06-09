@@ -23,11 +23,9 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Dialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,15 +54,6 @@ public class GameController {
      */
     //Testes for Pit og RebootToken
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        // TODO Assignment V1: method should be implemented by the students:
-        //   - the current player should be moved to the given space
-        //     (if it is free()
-        //   - and the current player should be set to the player
-        //     following the current player
-        //   - the counter of moves in the game should be increased by one
-        //     if the player is moved
-
-
         Player player = this.board.getCurrentPlayer();
         System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
@@ -75,7 +64,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     /**
      * ...
      * This is where we initilize all the elements on the board. This
@@ -85,34 +73,6 @@ public class GameController {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
-
-        /**
-         * Definer where on the board, the specific fields shall be placed
-         */
-        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
-
-        if (board.getTotalCheckpoints() < 1) {
-            /*
-        board.getSpace(1,1).getActions().add(new ConveyorBelt());
-        board.getSpace(3,1).getActions().add(new ConveyorBelt());
-
-        board.getSpace(4, 2).addWall(Heading.SOUTH);
-        board.getSpace(5,2).addWall(Heading.NORTH);
-
-        board.addGear(board.getSpace(4, 5).getActions().add(new Gear(Heading.WEST)));
-        board.addGear(board.getSpace(4, 6).getActions().add(new Gear(Heading.EAST)));
-
-
-        board.getSpace(6,6).getActions().add(new RebootToken());
-
-        board.getSpace(1,0).getActions().add(new Pit());
-            RebootToken = board.findToken();
-
-            board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
-            board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
-*/
-           // board.getSpace(6,1).getActions().add(new StartField(0));
-        }
 
         RebootToken = board.findToken();
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
@@ -134,7 +94,10 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * Generates random commandcards
+     * @return returns the randomly generated commandcard
+     */
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
@@ -142,8 +105,6 @@ public class GameController {
 
     }
 
-
-    // XXX: V2
     /**
      * updates when the player taps the finnish button
      * the execute button becomes active.
@@ -155,8 +116,11 @@ public class GameController {
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
     }
-
-    public void selectstartposition(){
+    /**
+     * selectStartPosition gets all of available starting positions adding them to the startSpot array.
+     *
+     */
+    public void selectStartPosition(){
         int k = 0;
         while(k < 6) {
 
@@ -193,7 +157,10 @@ public class GameController {
 
     }
 
-    // XXX: V2
+    /**
+     * makeProgramFieldsVisible turns all of the players cards visible.
+     *
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -204,7 +171,10 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * makeProgramFieldsInvisible turns all of the players cards invisible.
+     *
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -215,7 +185,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     /**
      * Makes the move the player request.
      */
@@ -223,21 +192,15 @@ public class GameController {
         board.setStepMode(false);
         continuePrograms();
     }
-    /*public void selectStartPos(){
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        for (int i = 0; i < board.getPlayersNumber(); i++) {
 
-        }
-        ChoiceDialog<>
-    }*/
-
-    // XXX: V2
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
-    // XXX: V2
+    /**
+     * executes all commandcards in all registers.
+     */
     private void continuePrograms() {
         do {
             executeNextStep();
@@ -245,13 +208,12 @@ public class GameController {
     }
 
 
-    // XXX: V2
+    /**
+     * executeNextStep executes the commandcard in the current register.
+     */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
-        Space current = currentPlayer.getSpace();
-
-         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
-
+        Space current;
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
@@ -265,11 +227,13 @@ public class GameController {
                     //Fires commandcard
                     executeCommand(currentPlayer, command);
                 }
+
                 // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG. Fires if activiation field
                 current = currentPlayer.getSpace();
-                if(current.getActions().size() != 0){
+                if(current != null && current.getActions().size() != 0){
                     current.getActions().get(0).doAction(this,current);
                 }
+
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
                 if (nextPlayerNumber < board.getPlayersNumber()) {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
@@ -318,7 +282,11 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * ExecuteCommand allows for the execution of commands/commandcards.
+     * @param player - player to execute the command on.
+     * @param command - the command which should be executes.
+     */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -344,22 +312,20 @@ public class GameController {
         }
     }
 
-    // TODO Assignment V2
     /**
-     * The moveFoward function get the player and what way they are heading and then moves them one space forward.
+     * The moveFoward function get the player and what way they are heading and then moves them one space forward if able.
+     * In the case of a wall is blocking the path the player won't move.
+     * In the case of another player blocking the path, the blocking player will then be moved in the direction of the player who pushes.
+     * @param player - the player to move
+     * @param heading - the heading to move the player
      */
     public void moveForward(@NotNull Player player, Heading heading) {
-        //heading = Heading.NORTH;
-
-
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, heading);
 
             if(target != null){
-
                 switch(heading){
-
                     case NORTH:
                         if(!current.hasWallNouth && !target.hasWallSouth){
                             if(target.getPlayer() != null){
@@ -401,17 +367,13 @@ public class GameController {
                         } break;
                 }
             } else {
-                //if(target.getPlayer() != null) moveForward(target.getPlayer(), player.getHeading());
                 try {
                     if (RebootToken.getPlayer() != null) {
                         pushPlayer(RebootToken.getPlayer(), RebootToken.getPlayer().getHeading());
                         moveCurrentPlayerToSpace(RebootToken);
                         ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
                     } else {
-                        //Space space = board.getSpace(target.x, target.y);
                         current.getPlayer().setSpace(RebootToken);
-                        //pushPlayer(current.getPlayer(), current.getPlayer().getHeading());
-                        //moveCurrentPlayerToSpace(RebootToken);
                         ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
                     }
                 } catch(NullPointerException e){
@@ -421,22 +383,32 @@ public class GameController {
 
         }
     }
+    /**
+     * This function allows the player to push the guy in front of him and afterward take his spot.
+     * @param player - player to turn to the right.
+     * @param pusher - pusher is the direction of which the pushed player should get moved.
+     */
     public void pushPlayer(Player player, Heading pusher){
         Space playerToPushSpace = player.getSpace();
         Space PushTarget = board.getNeighbour(playerToPushSpace, pusher);
         player.setSpace(PushTarget);
     }
 
-    // TODO Assignment V2
     /**
      * Calls the moveforward function twice.
+     * @param player - player to move.
+     *
      */
     public void fastForward(@NotNull Player player) {
         moveForward(player, player.getHeading());
         moveForward(player, player.getHeading());
     }
 
-    // TODO Assignment V2
+    /**
+     * Turns the player to the right.
+     * @param player - player to turn to the right.
+     *
+     */
     public void turnRight(@NotNull Player player) {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
@@ -445,7 +417,11 @@ public class GameController {
 
     }
 
-    // TODO Assignment V2
+    /**
+     * Turns the player to the left.
+     * @param player - player to turn to the left.
+     *
+     */
     public void turnLeft(@NotNull Player player) {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
@@ -453,6 +429,11 @@ public class GameController {
         }
     }
 
+    /**
+     * The moveCards function allows the player to move his commandcards from one place to another.
+     * @param source - source is the field which contains the card to move.
+     * @param target - target is the field to which the card should be moved.
+     */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();
