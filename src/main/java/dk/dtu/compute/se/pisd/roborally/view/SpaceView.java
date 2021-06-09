@@ -26,7 +26,6 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.embed.swing.SwingFXUtils;
@@ -135,9 +134,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                 drawObject(space.x, space.y, "NORTH", "HexagonRed");
             }else if (space.getActions().get(0).getClass().toString().contains(("RebootToken"))){
                 drawObject(space.x, space.y, "NORTH", "Hexagon");
-            }else if (space.getActions().get(0).getClass().toString().contains("StartField")){
-                System.out.println(((StartField) space.getActions().get(0)).number);
-                    startFieldDraw(space, ((StartField) space.getActions().get(0)).number);
             }
             // Due to the implementation we have draw the player once more when he's standing on a field with actions, otherwise player is drawn underneath.
             if(space.getPlayer() != null){
@@ -160,52 +156,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
     }
-    void startFieldDraw(Space space, int number){
-        BufferedImage StartField0 = null;
-        BufferedImage StartField1 = null;
-        BufferedImage StartField2 = null;
-        BufferedImage StartField3 = null;
-        BufferedImage StartField4 = null;
-        BufferedImage StartField5 = null;
 
-        try {
-            StartField0 = ImageIO.read(this.getClass().getResource("/images/StartField0.png"));
-            StartField1 = ImageIO.read(this.getClass().getResource("/images/StartField1.png"));
-            StartField2 = ImageIO.read(this.getClass().getResource("/images/StartField2.png"));
-            StartField3 = ImageIO.read(this.getClass().getResource("/images/StartField3.png"));
-            StartField4 = ImageIO.read(this.getClass().getResource("/images/StartField4.png"));
-            StartField5 = ImageIO.read(this.getClass().getResource("/images/StartField5.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image StartField0s = SwingFXUtils.toFXImage(StartField0, null);
-        Image StartField1s = SwingFXUtils.toFXImage(StartField1, null);
-        Image StartField2s = SwingFXUtils.toFXImage(StartField2, null);
-        Image StartField3s = SwingFXUtils.toFXImage(StartField3, null);
-        Image StartField4s = SwingFXUtils.toFXImage(StartField4, null);
-        Image StartField5s = SwingFXUtils.toFXImage(StartField5, null);
-        switch (number) {
-            case 0:
-                gc.drawImage(StartField0s,7.5,7.5,60,60);
-                break;
-            case 1:
-                gc.drawImage(StartField1s,7.5,7.5,60,60 );
-                break;
-            case 2:
-                gc.drawImage(StartField2s,7.5,7.5,60,60 );
-                break;
-            case 3:
-                gc.drawImage(StartField3s,7.5,7.5,60,60 );
-                break;
-            case 4:
-                gc.drawImage(StartField4s,7.5,7.5,60,60 );
-                break;
-            case 5:
-                gc.drawImage(StartField5s,7.5,7.5,60,60 );
-                break;
-        }
-        this.getChildren().add(canvas);
-    }
 //*******************************WALLS**********************************//
     void drawObject(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
@@ -216,7 +167,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             BufferedImage conImageDown = null;
             BufferedImage gearImageLeft = null;
             BufferedImage gearImageRight = null;
-
+            BufferedImage PitImage = null;
+            BufferedImage RebootTokenImage = null;
 
             try {
                 conImage = ImageIO.read(this.getClass().getResource("/images/concon.png"));
@@ -225,7 +177,8 @@ public class SpaceView extends StackPane implements ViewObserver {
                 conImageDown = ImageIO.read(this.getClass().getResource("/images/conconDown.png"));
                 gearImageLeft = ImageIO.read(this.getClass().getResource("/images/gearLeft.png"));
                 gearImageRight = ImageIO.read(this.getClass().getResource("/images/gearRight.png"));
-
+                PitImage = ImageIO.read(this.getClass().getResource("/images/TruePit.png"));
+                RebootTokenImage = ImageIO.read(this.getClass().getResource("/images/RebootToken.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,6 +189,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             Image conveyorDown = SwingFXUtils.toFXImage(conImageDown, null);
             Image gearLeft = SwingFXUtils.toFXImage(gearImageLeft, null);
             Image gearRight = SwingFXUtils.toFXImage(gearImageRight, null);
+            Image RebootToken = SwingFXUtils.toFXImage(RebootTokenImage, null);
+            Image Pit = SwingFXUtils.toFXImage(PitImage, null);
 
 
             gc.setStroke(Color.RED);
@@ -257,12 +212,10 @@ public class SpaceView extends StackPane implements ViewObserver {
                             gc.drawImage(conveyorUp,7.5,7.5,60,60);
                             break;
                         case "HexagonRed":
-                            gc.setStroke(Color.RED);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(Pit, 7.5,7.5,60,60);
                             break;
                         case "Hexagon":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(RebootToken, 7.5,7.5,60,60);
                             break;
                     }
                     break;
@@ -299,13 +252,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                         case "square":
                             gc.drawImage(conveyorRight,7.5,7.5,60,60);
                             break;
-                        case "Hexagon":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
-                            break;
                         case "HexagonRed":
-                            gc.setStroke(Color.RED);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(Pit, 7.5,7.5,60,60);
+                            break;
+                        case "Hexagon":
+                            gc.drawImage(RebootToken, 7.5,7.5,60,60);
                             break;
                         case "triangle":
                             gc.drawImage(gearRight,10,10,60,60);
@@ -325,13 +276,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                         case "square":
                             gc.drawImage(conveyorLeft,7.5,7.5,60,60);
                             break;
-                        case "Hexagon":
-                            gc.setStroke(Color.BLUE);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
-                            break;
                         case "HexagonRed":
-                            gc.setStroke(Color.RED);
-                            gc.strokeRoundRect(7, 7, 60, 60, SPACE_WIDTH - 40, SPACE_HEIGHT - 5);
+                            gc.drawImage(Pit, 7.5,7.5,60,60);
+                            break;
+                        case "Hexagon":
+                            gc.drawImage(RebootToken, 7.5,7.5,60,60);
                             break;
                         case "triangle":
                             gc.drawImage(gearLeft,10,10,60,60);
