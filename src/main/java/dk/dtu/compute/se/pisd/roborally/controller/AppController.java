@@ -30,6 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.CheckPoint2;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -99,17 +100,39 @@ public class AppController implements Observer {
             System.out.println(board.getBoardName());
             gameController = new GameController(board);
             int no = result.get();
+
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
 
+            for (int i = 0; i <board.width; i++) {
+                for (int j = 0; j < board.height; j++) {
+                    for (int k = 0; k < board.getSpace(i, j).getActions().size(); k++) {
+                        if(board.getSpace(i, j).getActions().get(k).getClass().toString().contains("CheckPoint2")){
+                            board.countupcheckpoint();
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+
+
+
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
-            gameController.startProgrammingPhase();
 
+            gameController.startProgrammingPhase();
             roboRally.createBoardView(gameController);
+            //board.setPhase(Phase.STARTUP);
+
+
+
         }
     }
 

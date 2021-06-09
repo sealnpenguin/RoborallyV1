@@ -82,7 +82,8 @@ public class GameController {
          */
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
-        /*if (board.getTotalCheckpoints() < 1) {
+        if (board.getTotalCheckpoints() < 1) {
+            /*
         board.getSpace(1,1).getActions().add(new ConveyorBelt());
         board.getSpace(3,1).getActions().add(new ConveyorBelt());
 
@@ -97,11 +98,11 @@ public class GameController {
 
         board.getSpace(1,0).getActions().add(new Pit());
             RebootToken = board.findToken();
-
-            board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
+*/
+           /* board.addCheckpoint(board.getSpace(0, 1).getActions().add(new CheckPoint2(1)));
             board.addCheckpoint(board.getSpace(0, 2).getActions().add(new CheckPoint2(2)));
-
-        }*/
+*/
+        }
 
         RebootToken = board.findToken();
         // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
@@ -130,6 +131,7 @@ public class GameController {
         return new CommandCard(commands[random]);
 
     }
+
 
     // XXX: V2
     /**

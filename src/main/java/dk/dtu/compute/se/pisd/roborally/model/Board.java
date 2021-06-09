@@ -89,6 +89,11 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
         //this.stepModex = false;
     }
 
+
+    /**
+     * Itterating through all the spaces to find the reboot token
+     * @return the space with the reboot token
+     */
     public Space findToken(){
         for (int i = 0; i < this.width; i++){
             for (int j = 0; j < this.height; j++) {
@@ -148,6 +153,10 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
         } else {
             return null;
         }
+    }
+
+    public void countupcheckpoint(){
+        checkpoints.add(true);
     }
     public int getTotalCheckpoints(){
         return checkpoints.size();
