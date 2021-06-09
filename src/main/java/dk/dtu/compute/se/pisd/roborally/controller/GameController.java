@@ -55,7 +55,7 @@ public class GameController {
     //Testes for Pit og RebootToken
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         Player player = this.board.getCurrentPlayer();
-        System.out.println(space.getPlayer());
+        //System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
             player.setSpace(space);
             board.increaseCounter();
@@ -149,7 +149,7 @@ public class GameController {
             Optional<Integer> result = options.showAndWait();
 
             board.getPlayer(i).setSpace(startingSpot.get(result.get()));
-             System.out.println(options.getResult());
+             //System.out.println(options.getResult());
              startSpotInt.remove(options.getResult());
         }
 

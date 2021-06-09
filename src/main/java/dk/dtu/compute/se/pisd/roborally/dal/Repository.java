@@ -344,9 +344,9 @@ class Repository implements IRepository {
 			// TODO should be more defensive
 			Player player = game.getPlayer(playerId);
 			// rs.updateString(PLAYER_NAME, player.getName()); // not needed: player's names does not change
-			System.out.println(rs.getInt(PLAYER_POSITION_X));
+			//System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
-			System.out.println(rs.getInt(PLAYER_POSITION_X));
+			//System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
