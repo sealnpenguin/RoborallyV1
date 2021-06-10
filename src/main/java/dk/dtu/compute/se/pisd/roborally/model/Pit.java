@@ -23,7 +23,7 @@ public class Pit extends FieldAction{
         //gameController.moveCurrentPlayerToSpace(gameController.board.getSpace(6, 6));
 
         if (gameController.RebootToken.getPlayer() != null){
-            gameController.pushPlayer(gameController.RebootToken.getPlayer(), getHeading());
+            gameController.pushPlayer(gameController.RebootToken.getPlayer(), this.heading);
             gameController.moveCurrentPlayerToSpace(gameController.RebootToken);
             ((RebootToken) gameController.RebootToken.getActions().get(0)).destoyProgrammingCards(gameController.RebootToken.getPlayer());
         }
@@ -31,7 +31,6 @@ public class Pit extends FieldAction{
             gameController.moveCurrentPlayerToSpace(gameController.RebootToken);
             ((RebootToken) gameController.RebootToken.getActions().get(0)).destoyProgrammingCards(gameController.RebootToken.getPlayer());
         }
-
         return false;
     }
 }
