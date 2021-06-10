@@ -118,11 +118,8 @@ public class AppController implements Observer {
                         if(board.getSpace(i, j).getActions().get(k).getClass().toString().contains("CheckPoint2")){
                             board.countupcheckpoint();
                         }
-
                     }
-
                 }
-
             }
             gameController.startProgrammingPhase();
             roboRally.createBoardView(gameController);
@@ -239,6 +236,7 @@ public class AppController implements Observer {
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
+        //System.out.println("update");
     }
 
 }

@@ -50,6 +50,8 @@ class Repository implements IRepository {
 	private static final String PLAYER_PLAYERID = "playerID";
 
 	private static final String PLAYER_PLAYERCARDS = "playerCards";
+
+	private static final String RECENT_CHECKPOINTS = "recentCheckPoint";
 	
 	private static final String PLAYER_NAME = "name";
 
@@ -295,6 +297,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
+			rs.updateInt(RECENT_CHECKPOINTS, player.getRecentCheckpoint());
 			rs.insertRow();
 		}
 
@@ -325,6 +328,7 @@ class Repository implements IRepository {
 				player.setCardNumber(playerCards);
 				System.out.println(playerCards + "Dette er det den loader");
 				player.loadCards();
+				player.setRecentCheckpoint(rs.getInt(RECENT_CHECKPOINTS));
 				// TODO  should also load players program and hand here
 			} else {
 				// TODO error handling
@@ -350,6 +354,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
+			rs.updateInt(RECENT_CHECKPOINTS,player.getRecentCheckpoint());
 			// TODO error handling
 			// TODO take care of case when number of players changes, etc
 			rs.updateRow();

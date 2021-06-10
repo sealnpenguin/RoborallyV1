@@ -147,6 +147,10 @@ public class Player extends Subject {
         return recentCheckpoint;
     }
 
+    public void setRecentCheckpoint(int setValue){
+        recentCheckpoint = setValue;
+    }
+
     public CommandCardField getProgramField(int i) {
         return program[i];
     }
