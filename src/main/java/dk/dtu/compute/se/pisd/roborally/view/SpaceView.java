@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
@@ -38,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * ...
@@ -50,23 +52,22 @@ public class SpaceView extends StackPane implements ViewObserver {
     Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
     GraphicsContext gc = canvas.getGraphicsContext2D();
 
-    final public static int SPACE_HEIGHT = 75; // 60; // 75;
-    final public static int SPACE_WIDTH = 75;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 60; // 60; // 75;
+    final public static int SPACE_WIDTH = 60;  // 60; // 75;
 
     public final Space space;
+
+    Image[] imageArr;
     //Image variables
-    BufferedImage conImage = null;
-    BufferedImage conImageLeft = null;
-    BufferedImage conImageRight = null;
-    BufferedImage conImageDown = null;
-    BufferedImage gearImageLeft = null;
-    BufferedImage gearImageRight = null;
-    BufferedImage PitImage = null;
-    BufferedImage RebootTokenImage = null;
+    //BufferedImage conImage,conImageLeft,conImageRight,conImageDown,gearImageLeft,gearImageRight,PitImage,RebootTokenImage,backgroundImage;
+    //BufferedImage StartField0,StartField1,StartField2,StartField3,StartField4,StartField5;
 
-    public SpaceView(@NotNull Space space) {
+    //Image conveyorUp, conveyorLeft, conveyorRight, conveyorDown, gearLeft, gearRight, RebootToken, Pit, StartField0s, StartField1s, StartField2s, StartField3s, StartField4s, StartField5s;
+
+    public SpaceView(@NotNull Space space, Image[] images) {
         this.space = space;
-
+        imageArr = images.clone();
+        //System.out.println(imageArr);
         // XXX the following styling should better be done with styles
         this.setPrefWidth(SPACE_WIDTH);
         this.setMinWidth(SPACE_WIDTH);
@@ -81,7 +82,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         } else {
             this.setStyle("-fx-background-color: #9b9a9a;");
         }
-
         // updatePlayer();
 
         // This space view should listen to changes of the space
@@ -121,117 +121,69 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
     
     public void drawAll(){
+        gc.drawImage(imageArr[14],0,0);
+
         if(space.getActions().size() > 0){
             if(space.getActions().get(0).getClass().toString().contains("ConveyorBelt")){
                 drawObject(space.x, space.y, ((ConveyorBelt) space.getActions().get(0)).getHeading().toString(), "square");
-            } else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint"))){
+            }else if(space.getActions().get(0).getClass().toString().contains(("CheckPoint"))){
                 drawObject(space.x, space.y, "NORTH", "circle");
-            } else if(space.getActions().get(0).getClass().toString().contains(("Gear"))){
+            }else if(space.getActions().get(0).getClass().toString().contains(("Gear"))){
                 drawObject(space.x, space.y, ((Gear) space.getActions().get(0)).getHeading().toString(), "triangle");
             }else if (space.getActions().get(0).getClass().toString().contains(("Pit"))){
                 drawObject(space.x, space.y, "NORTH", "HexagonRed");
             }else if (space.getActions().get(0).getClass().toString().contains(("RebootToken"))){
                 drawObject(space.x, space.y, "NORTH", "Hexagon");
             }else if (space.getActions().get(0).getClass().toString().contains("StartField")){
-                //System.out.println(((StartField) space.getActions().get(0)).number);
                 startFieldDraw(((StartField) space.getActions().get(0)).number);
             }
-            // Due to the implementation we have draw the player once more when he's standing on a field with actions, otherwise player is drawn underneath.
-            if(space.getPlayer() != null){
-                Polygon arrow = new Polygon(0.0, 0.0,
-                        10.0, 20.0,
-                        20.0, 0.0);
-                try {
-                    arrow.setFill(Color.valueOf(space.getPlayer().getColor()));
-                } catch (Exception e) {
-                    arrow.setFill(Color.MEDIUMPURPLE);
-                }
-                arrow.setRotate((90 * space.getPlayer().getHeading().ordinal()) % 360);
-                this.getChildren().add(arrow);
-            }
         }
-
         if (!space.getWalls().isEmpty()){
             for (Heading wallPos : space.getWalls()){
                     drawObject(space.x, space.y, wallPos.toString(), "wall");
             }
         }
+        this.getChildren().add(canvas);
+
+        // Due to the implementation we have draw the player once more when he's standing on a field with actions, otherwise player is drawn underneath.
+        if(space.getPlayer() != null){
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    10.0, 20.0,
+                    20.0, 0.0);
+            try {
+                arrow.setFill(Color.valueOf(space.getPlayer().getColor()));
+            } catch (Exception e) {
+                arrow.setFill(Color.MEDIUMPURPLE);
+            }
+            arrow.setRotate((90 * space.getPlayer().getHeading().ordinal()) % 360);
+            this.getChildren().add(arrow);
+        }
     }
     void startFieldDraw(int number){
-        BufferedImage StartField0 = null;
-        BufferedImage StartField1 = null;
-        BufferedImage StartField2 = null;
-        BufferedImage StartField3 = null;
-        BufferedImage StartField4 = null;
-        BufferedImage StartField5 = null;
-
-        try {
-            StartField0 = ImageIO.read(this.getClass().getResource("/images/StartField0.png"));
-            StartField1 = ImageIO.read(this.getClass().getResource("/images/StartField1.png"));
-            StartField2 = ImageIO.read(this.getClass().getResource("/images/StartField2.png"));
-            StartField3 = ImageIO.read(this.getClass().getResource("/images/StartField3.png"));
-            StartField4 = ImageIO.read(this.getClass().getResource("/images/StartField4.png"));
-            StartField5 = ImageIO.read(this.getClass().getResource("/images/StartField5.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image StartField0s = SwingFXUtils.toFXImage(StartField0, null);
-        Image StartField1s = SwingFXUtils.toFXImage(StartField1, null);
-        Image StartField2s = SwingFXUtils.toFXImage(StartField2, null);
-        Image StartField3s = SwingFXUtils.toFXImage(StartField3, null);
-        Image StartField4s = SwingFXUtils.toFXImage(StartField4, null);
-        Image StartField5s = SwingFXUtils.toFXImage(StartField5, null);
         switch (number) {
             case 0:
-                gc.drawImage(StartField0s,7.5,7.5,60,60);
+                gc.drawImage(imageArr[8],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
             case 1:
-                gc.drawImage(StartField1s,7.5,7.5,60,60 );
+                gc.drawImage(imageArr[9],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
             case 2:
-                gc.drawImage(StartField2s,7.5,7.5,60,60 );
+                gc.drawImage(imageArr[10],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
             case 3:
-                gc.drawImage(StartField3s,7.5,7.5,60,60 );
+                gc.drawImage(imageArr[11],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
             case 4:
-                gc.drawImage(StartField4s,7.5,7.5,60,60 );
+                gc.drawImage(imageArr[12],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
             case 5:
-                gc.drawImage(StartField5s,7.5,7.5,60,60 );
+                gc.drawImage(imageArr[13],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                 break;
         }
-        this.getChildren().add(canvas);
     }
-//*******************************WALLS**********************************//
     void drawObject(int DrawAtX, int DrawAtY, String Heading, String typeOfDrawing) {
         if (space.x == DrawAtX && space.y == DrawAtY) {
-
-            try {
-                conImage = ImageIO.read(this.getClass().getResource("/images/concon.png"));
-                conImageLeft = ImageIO.read(this.getClass().getResource("/images/conconLeft.png"));
-                conImageRight = ImageIO.read(this.getClass().getResource("/images/conconRight.png"));
-                conImageDown = ImageIO.read(this.getClass().getResource("/images/conconDown.png"));
-                gearImageLeft = ImageIO.read(this.getClass().getResource("/images/gearLeft.png"));
-                gearImageRight = ImageIO.read(this.getClass().getResource("/images/gearRight.png"));
-                PitImage = ImageIO.read(this.getClass().getResource("/images/pit.png"));
-                RebootTokenImage = ImageIO.read(this.getClass().getResource("/images/Reboot.png"));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Image conveyorUp = SwingFXUtils.toFXImage(conImage, null);
-            Image conveyorLeft = SwingFXUtils.toFXImage(conImageLeft, null);
-            Image conveyorRight = SwingFXUtils.toFXImage(conImageRight, null);
-            Image conveyorDown = SwingFXUtils.toFXImage(conImageDown, null);
-            Image gearLeft = SwingFXUtils.toFXImage(gearImageLeft, null);
-            Image gearRight = SwingFXUtils.toFXImage(gearImageRight, null);
-            Image RebootToken = SwingFXUtils.toFXImage(RebootTokenImage, null);
-            Image Pit = SwingFXUtils.toFXImage(PitImage, null);
-
-
-
+            int checkpointNum;
             gc.setStroke(Color.RED);
             gc.setLineWidth(5);
             gc.setLineCap(StrokeLineCap.ROUND);
@@ -240,21 +192,29 @@ public class SpaceView extends StackPane implements ViewObserver {
                 case "NORTH":
                     switch (typeOfDrawing) {
                         case "wall":
-                            gc.strokeLine(2, SPACE_HEIGHT - 74, SPACE_WIDTH - 2, SPACE_HEIGHT - 74);
+                            gc.strokeLine(60, 2, 0, 0);
                             space.hasWallNouth = true;
                             break;
                         case "circle":
-                            gc.setStroke(Color.YELLOW);
-                            gc.strokeOval(25, 25, SPACE_WIDTH - 50, SPACE_HEIGHT - 50);
+                            checkpointNum = ((CheckPoint2) space.getActions().get(0)).n;
+                            if(checkpointNum == 1){
+                                gc.drawImage(imageArr[15],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
+                            } else if(checkpointNum == 2){
+                            gc.drawImage(imageArr[16],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
+                            } else if(checkpointNum == 3){
+                                gc.drawImage(imageArr[17],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
+                            } else if(checkpointNum == 4){
+                                gc.drawImage(imageArr[18],7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
+                            }
                             break;
                         case "square":
-                            gc.drawImage(conveyorUp,7.5,7.5,60,60);
+                            gc.drawImage(imageArr[0],10,0,SPACE_WIDTH - 15,SPACE_HEIGHT);
                             break;
                         case "HexagonRed":
-                            gc.drawImage(Pit, 7.5,7.5,60,60);
+                            gc.drawImage(imageArr[7], 7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                             break;
                         case "Hexagon":
-                            gc.drawImage(RebootToken, 7.5,7.5,60,60);
+                            gc.drawImage(imageArr[6], 7.5,7.5,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                             break;
                     }
                     break;
@@ -265,7 +225,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             space.hasWallSouth = true;
                             break;
                         case "square":
-                            gc.drawImage(conveyorDown,7.5,7.5,60,60);
+                            gc.drawImage(imageArr[3],10,0,SPACE_WIDTH - 15,SPACE_HEIGHT);
                             break;
                     }
 
@@ -277,10 +237,10 @@ public class SpaceView extends StackPane implements ViewObserver {
                             space.hasWallEast = true;
                             break;
                         case "square":
-                            gc.drawImage(conveyorRight,7.5,7.5,60,60);
+                            gc.drawImage(imageArr[2],0,10,SPACE_WIDTH,SPACE_HEIGHT - 15);
                             break;
                         case "triangle":
-                            gc.drawImage(gearRight,10,10,60,60);
+                            gc.drawImage(imageArr[5],10,10,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                             break;
                     }
                     break;
@@ -291,17 +251,15 @@ public class SpaceView extends StackPane implements ViewObserver {
                             space.hasWallWest = true;
                             break;
                         case "square":
-                            gc.drawImage(conveyorLeft,7.5,7.5,60,60);
+                            gc.drawImage(imageArr[1],0,10,SPACE_WIDTH,SPACE_HEIGHT - 15);
                             break;
                         case "triangle":
-                            gc.drawImage(gearLeft,10,10,60,60);
+                            gc.drawImage(imageArr[4],10,10,SPACE_WIDTH - 15,SPACE_HEIGHT - 15);
                             break;
                     }
                     break;
             }
-            this.getChildren().add(canvas);
         }
     }
-
 
 }

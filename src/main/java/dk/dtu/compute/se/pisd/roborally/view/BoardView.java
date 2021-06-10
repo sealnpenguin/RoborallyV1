@@ -27,12 +27,18 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * ...
@@ -52,6 +58,11 @@ public class BoardView extends VBox implements ViewObserver {
     private Label statusLabel;
 
     private SpaceEventHandler spaceEventHandler;
+    BufferedImage conImage,conImageLeft,conImageRight,conImageDown,gearImageLeft,gearImageRight,PitImage,RebootTokenImage,
+            backgroundImage,StartField0,StartField1,StartField2,StartField3,StartField4,StartField5,checkPoint1,checkPoint2,checkPoint3,checkPoint4;
+
+    Image conveyorUp, conveyorLeft, conveyorRight, conveyorDown, gearLeft, gearRight, RebootToken, Pit, StartField0s,
+            StartField1s, StartField2s, StartField3s, StartField4s, StartField5s, background,checkPointImage1,checkPointImage2,checkPointImage3,checkPointImage4;
 
     public BoardView(@NotNull GameController gameController) {
         board = gameController.board;
@@ -59,6 +70,9 @@ public class BoardView extends VBox implements ViewObserver {
         mainBoardPane = new GridPane();
         playersView = new PlayersView(gameController);
         statusLabel = new Label("<no status>");
+        loadImages();
+        Image[] images = new Image[]{conveyorUp, conveyorLeft, conveyorRight, conveyorDown, gearLeft, gearRight,
+                RebootToken, Pit, StartField0s, StartField1s, StartField2s, StartField3s, StartField4s, StartField5s, background, checkPointImage1, checkPointImage2, checkPointImage3,checkPointImage4};
 
         this.getChildren().add(mainBoardPane);
         this.getChildren().add(playersView);
@@ -71,7 +85,7 @@ public class BoardView extends VBox implements ViewObserver {
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
                 Space space = board.getSpace(x, y);
-                SpaceView spaceView = new SpaceView(space);
+                SpaceView spaceView = new SpaceView(space, images);
                 spaces[x][y] = spaceView;
                 mainBoardPane.add(spaceView, x, y);
                 spaceView.setOnMouseClicked(spaceEventHandler);
@@ -123,5 +137,53 @@ public class BoardView extends VBox implements ViewObserver {
         }
 
     }
+    private void loadImages(){
+        try {
+            conImage = ImageIO.read(this.getClass().getResource("/images/concon.png"));
+            conImageLeft = ImageIO.read(this.getClass().getResource("/images/conconLeft.png"));
+            conImageRight = ImageIO.read(this.getClass().getResource("/images/conconRight.png"));
+            conImageDown = ImageIO.read(this.getClass().getResource("/images/conconDown.png"));
+            gearImageLeft = ImageIO.read(this.getClass().getResource("/images/gearLeft.png"));
+            gearImageRight = ImageIO.read(this.getClass().getResource("/images/gearRight.png"));
+            PitImage = ImageIO.read(this.getClass().getResource("/images/pit.png"));
+            RebootTokenImage = ImageIO.read(this.getClass().getResource("/images/Reboot.png"));
+            StartField0 = ImageIO.read(this.getClass().getResource("/images/StartField0.png"));
+            StartField1 = ImageIO.read(this.getClass().getResource("/images/StartField1.png"));
+            StartField2 = ImageIO.read(this.getClass().getResource("/images/StartField2.png"));
+            StartField3 = ImageIO.read(this.getClass().getResource("/images/StartField3.png"));
+            StartField4 = ImageIO.read(this.getClass().getResource("/images/StartField4.png"));
+            StartField5 = ImageIO.read(this.getClass().getResource("/images/StartField5.png"));
+            backgroundImage = ImageIO.read(this.getClass().getResource("/images/background.png"));
+            checkPoint1 = ImageIO.read(this.getClass().getResource("/images/checkpoint1.png"));
+            checkPoint2 = ImageIO.read(this.getClass().getResource("/images/checkpoint2.png"));
+            checkPoint3 = ImageIO.read(this.getClass().getResource("/images/checkpoint3.png"));
+            checkPoint4 = ImageIO.read(this.getClass().getResource("/images/checkpoint4.png"));
 
+
+
+            conveyorUp = SwingFXUtils.toFXImage(conImage, null);
+            conveyorLeft = SwingFXUtils.toFXImage(conImageLeft, null);
+            conveyorRight = SwingFXUtils.toFXImage(conImageRight, null);
+            conveyorDown = SwingFXUtils.toFXImage(conImageDown, null);
+            gearLeft = SwingFXUtils.toFXImage(gearImageLeft, null);
+            gearRight = SwingFXUtils.toFXImage(gearImageRight, null);
+            RebootToken = SwingFXUtils.toFXImage(RebootTokenImage, null);
+            Pit = SwingFXUtils.toFXImage(PitImage, null);
+            StartField0s = SwingFXUtils.toFXImage(StartField0, null);
+            StartField1s = SwingFXUtils.toFXImage(StartField1, null);
+            StartField2s = SwingFXUtils.toFXImage(StartField2, null);
+            StartField3s = SwingFXUtils.toFXImage(StartField3, null);
+            StartField4s = SwingFXUtils.toFXImage(StartField4, null);
+            StartField5s = SwingFXUtils.toFXImage(StartField5, null);
+            background = SwingFXUtils.toFXImage(backgroundImage, null);
+            checkPointImage1 = SwingFXUtils.toFXImage(checkPoint1, null);
+            checkPointImage2 = SwingFXUtils.toFXImage(checkPoint2, null);
+            checkPointImage3 = SwingFXUtils.toFXImage(checkPoint3, null);
+            checkPointImage4 = SwingFXUtils.toFXImage(checkPoint4, null);
+
+        } catch (IOException e) {
+            System.out.println("Unable to load images");
+            e.printStackTrace();
+        }
+    }
 }
