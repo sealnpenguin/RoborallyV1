@@ -25,7 +25,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
@@ -54,9 +53,8 @@ public class Board extends Subject {
     private final Space[][] spaces;
 
     private final List<Player> players = new ArrayList<>();
-    //martin
-private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
+    private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
     private List<Boolean> Gear = new ArrayList<Boolean>();
 
@@ -87,8 +85,6 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
                 spaces[x][y] = space;
             }
         }
-        //Skal denne være der?
-        //this.stepModex = false;
     }
 
 
@@ -105,7 +101,7 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
                     }
                 }
                 catch (IndexOutOfBoundsException e)  {
-                    continue;
+
                 }
             }
         }
@@ -279,13 +275,6 @@ public void addGear(boolean Gear){
         // This is actually a view aspect, but for making the first task easy for
         // the students, this method gives a string representation of the current
         // status of the game
-        
-        // TODO Assignment V1: this string could eventually be refined
-        //      The status line should show more information based on
-        //      situation; for now, introduce a counter to the Board,
-        //      which is counted up every time a player makes a move; the
-        //      status line should show the current player and the number
-        //      of the current move!
 
         String holdingstring = "";
 
@@ -293,28 +282,9 @@ public void addGear(boolean Gear){
             holdingstring += getPlayer(i).getName()+ ": " + getPlayer(i).getRecentCheckpoint() + " ";
         }
         return holdingstring;
-        /*
-        switch(getPlayersNumber()){
-            case 2:
-                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " ";
-            case 3:
-                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " ";
-            case 4:
-                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " ";
-            case 5:
-                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " " + getPlayer(4).getName()+ ": " + getPlayer(4).getRecentCheckpoint() + " ";
-            case 6:
-                return getPlayer(0).getName()+ ": "  + getPlayer(0).getRecentCheckpoint() + " " + getPlayer(1).getName()+ ": " + getPlayer(1).getRecentCheckpoint() + " " + getPlayer(2).getName()+ ": " + getPlayer(2).getRecentCheckpoint() + " " + getPlayer(3).getName()+ ": " + getPlayer(3).getRecentCheckpoint() + " " + getPlayer(4).getName()+ ": " + getPlayer(4).getRecentCheckpoint() + " " + getPlayer(5).getName()+ ": " + getPlayer(5).getRecentCheckpoint() + " ";
-            default:
-                break;
-        }
-        return "??"; */
     }
     private int count;
 
-    // TODO Assignment V1: add a counter along with a getter and a setter, so the
-    //      state the board (game) contains the number of moves, which then can
-    //      be used to extend the status message including the number of
     public int getCount() {
         return count;
     }

@@ -91,15 +91,12 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            // her fra
             /* choose board */
-            ChoiceDialog<String> mapDialog = new ChoiceDialog<String>(Map_OPTIONS.get(0), Map_OPTIONS);
+            ChoiceDialog<String> mapDialog = new ChoiceDialog<String>(Map_OPTIONS.get(2), Map_OPTIONS);
             mapDialog.setTitle("Maps");
             mapDialog.setHeaderText("Select a map");
              mapDialog.showAndWait(); //necessary .showAndWait() to get result
 
-
-            // hertil
 
             board = LoadBoard.loadBoard(mapDialog.getResult());
             board.boardName = mapDialog.getResult();
@@ -125,8 +122,6 @@ public class AppController implements Observer {
      */
 
     public void saveGame() {
-        // XXX needs to be implemented eventually
-        //iRepository.
         //Anne Sophie - If the game has been saved before, it will be saved by the same gameID (same place)
         try {
             RepositoryAccess.getRepository().updateGameInDB(gameController.board);
@@ -147,7 +142,6 @@ public class AppController implements Observer {
      * LoadGame gets the saved games from the local database.
      */
     public void loadGame() {
-        // Anne Sophie - Can only load the first six saved games (hardcoded)
         if (gameController == null) {
             for (int i = 0; i < RepositoryAccess.getRepository().getGames().size(); i++) {
                 LOAD_OPTIONS.add(i+": " + RepositoryAccess.getRepository().getGames().get(i).name);

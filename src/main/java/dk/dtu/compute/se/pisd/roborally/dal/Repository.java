@@ -79,9 +79,6 @@ class Repository implements IRepository {
 				connection.setAutoCommit(false);
 
 				PreparedStatement ps = getInsertGameStatementRGK();
-				// TODO: the name should eventually set by the user
-				//       for the game and should be then used 
-				//       game.getName();
 				ps.setString(1, filename/*"Date: " +  new Date()*/); // instead of name
 				ps.setNull(2, Types.TINYINT); // game.getPlayerNumber(game.getCurrentPlayer())); is inserted after players!
 				ps.setInt(3, game.getPhase().ordinal());
@@ -106,9 +103,6 @@ class Repository implements IRepository {
 				// statement.close();
 
 				createPlayersInDB(game);
-				/* TOODO this method needs to be implemented first
-				createCardFieldsInDB(game);
-				*/
 
 				// since current player is a foreign key, it can oly be
 				// inserted after the players are created, since MySQL does
@@ -170,9 +164,6 @@ class Repository implements IRepository {
 			rs.close();
 
 			updatePlayersInDB(game);
-			/* TOODO this method needs to be implemented first
-				updateCardFieldsInDB(game);
-			*/
 
             connection.commit();
             connection.setAutoCommit(true);
@@ -207,12 +198,6 @@ class Repository implements IRepository {
 			ResultSet rs = ps.executeQuery();
 			int playerNo = -1;
 			if (rs.next()) {
-				// TODO the width and height could eventually come from the database
-				// int width = AppController.BOARD_WIDTH;
-				// int height = AppController.BOARD_HEIGHT;
-				// game = new Board(width,height);
-				// TODO and we should also store the used game board in the database
-				//      for now, we use the default game board
 				if (RepositoryAccess.getRepository().getGames().get(id).name.endsWith("(defaultboard)")){
 					game = LoadBoard.loadBoard("defaultboard");
 				}
@@ -227,7 +212,6 @@ class Repository implements IRepository {
 				}
 
 				playerNo = rs.getInt(GAME_CURRENTPLAYER);
-				// TODO currently we do not set the games name (needs to be added)
 				game.setPhase(Phase.values()[rs.getInt(GAME_PHASE)]);
 				game.setStep(rs.getInt(GAME_STEP));
 			} else {
@@ -313,7 +297,6 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
 			if (i++ == playerId) {
-				// TODO this should be more defensive
 				String name = rs.getString(PLAYER_NAME);
 				String colour = rs.getString(PLAYER_COLOUR);
 				Player player = new Player(game, colour ,name);
@@ -329,7 +312,6 @@ class Repository implements IRepository {
 				System.out.println(playerCards + "Dette er det den loader");
 				player.loadCards();
 				player.setRecentCheckpoint(rs.getInt(RECENT_CHECKPOINTS));
-				// TODO  should also load players program and hand here
 			} else {
 				// TODO error handling
 				System.err.println("Game in DB does not have a player with id " + i +"!");
@@ -345,12 +327,9 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
-			// TODO should be more defensive
 			Player player = game.getPlayer(playerId);
 			// rs.updateString(PLAYER_NAME, player.getName()); // not needed: player's names does not change
-			//System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
-			//System.out.println(rs.getInt(PLAYER_POSITION_X));
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());

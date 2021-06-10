@@ -21,10 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import dk.dtu.compute.se.pisd.roborally.view.BoardView;
-import dk.dtu.compute.se.pisd.roborally.view.RoboRallyMenuBar;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import org.jetbrains.annotations.NotNull;
@@ -460,10 +457,13 @@ public class GameController {
 
     public void winInitialisation(Player player){
         if (amountFinished == 1){
-            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" you won.");
+            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + " you won.");
             msg.showAndWait();
-        } else{
-            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" got placed number " + amountFinished);
+        } else if (amountFinished == 2){
+            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + " finished " + amountFinished + "nd.");
+            msg.showAndWait();
+        }else {
+            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + " finished " + amountFinished + "rd.");
             msg.showAndWait();
         }
         Alert msg = new Alert(Alert.AlertType.INFORMATION, "The game will continue for now, but if you want to start a new game press stop game under file");
