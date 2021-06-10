@@ -101,7 +101,7 @@ public class AppController implements Observer {
 
             // hertil
 
-            Board board = LoadBoard.loadBoard(mapDialog.getResult());
+            board = LoadBoard.loadBoard(mapDialog.getResult());
             board.boardName = mapDialog.getResult();
             System.out.println(board.getBoardName());
             gameController = new GameController(board);
