@@ -94,7 +94,7 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
 
     /**
      * Itterating through all the spaces to find the reboot token
-     * @return the space with the reboot token
+     * @return the space with the reboot token otherwise returns null
      */
     public Space findToken(){
         for (int i = 0; i < this.width; i++){
@@ -129,7 +129,12 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
         }
     }
 
-
+    /**
+     * Function to get a space on the board.
+     * @param x specifies the space on the horizontal axis
+     * @param y specifies the space on the vertical axis
+     * @return a specific space from the board
+     */
     public Space getSpace(int x, int y) {
         if (x >= 0 && x < width &&
                 y >= 0 && y < height) {
@@ -158,17 +163,19 @@ private List<Boolean> checkpoints = new ArrayList<Boolean>();
         }
     }
 
+    /**
+     * This function is used when you load a board from a file.
+     * Whenever it encounters a checkpoint this function should get called and it adds a checkpoint to an array so the game knows
+     * how many checkpoints there are and thefore able to find a winner
+     */
     public void countupcheckpoint(){
         checkpoints.add(true);
     }
     public int getTotalCheckpoints(){
         return checkpoints.size();
     }
-//Martin
 
-public void addCheckpoint(boolean checkpoint){
-this.checkpoints.add(checkpoint);
-}
+
 public void addGear(boolean Gear){
         this.Gear.add(Gear);
 }

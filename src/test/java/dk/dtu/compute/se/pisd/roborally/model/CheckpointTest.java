@@ -22,10 +22,10 @@ public class CheckpointTest {
     public void player_wins_if_max_checkpoint_reached(){
         Board board = new Board(8, 8);
         Player player1 = new Player(board, "yellow", "player1");
-        board.addCheckpoint(true);
-        board.addCheckpoint(true);
-        board.addCheckpoint(true);
-        board.addCheckpoint(true);
+        board.countupcheckpoint();
+        board.countupcheckpoint();
+        board.countupcheckpoint();
+        board.countupcheckpoint();
         player1.RecentCheckpoint(1);
         player1.RecentCheckpoint(2);
         player1.RecentCheckpoint(3);
