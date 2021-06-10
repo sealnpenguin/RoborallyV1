@@ -66,8 +66,7 @@ public class GameController {
 
     /**
      * ...
-     * This is where we initilize all the elements on the board. This
-     * is just tempoary because we should be able to load the elements from a file at some point.
+     * This is where we initilize all the elements on the board.
      */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
@@ -75,7 +74,6 @@ public class GameController {
         board.setStep(0);
 
         RebootToken = board.findToken();
-        // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG.
 
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -118,7 +116,7 @@ public class GameController {
     }
     /**
      * selectStartPosition gets all of available starting positions adding them to the startSpot array.
-     *
+     *Also opens dialog box where player can choose the specific starting spot
      */
     public void selectStartPosition(){
         int k = 0;
@@ -149,7 +147,6 @@ public class GameController {
             Optional<Integer> result = options.showAndWait();
 
             board.getPlayer(i).setSpace(startingSpot.get(result.get()));
-             //System.out.println(options.getResult());
              startSpotInt.remove(options.getResult());
         }
 
@@ -172,7 +169,8 @@ public class GameController {
     }
 
     /**
-     * makeProgramFieldsInvisible turns all of the players cards invisible.
+     * makeProgramFieldsInvisible turns all of the players cards that is selected invisible so it only shows one
+     * command to be performed at at time.
      *
      */
     private void makeProgramFieldsInvisible() {
@@ -228,7 +226,7 @@ public class GameController {
                     executeCommand(currentPlayer, command);
                 }
 
-                // SKAL IKKE VÆRE HER! BARE MIDLERTIDIG. Fires if activiation field
+                //  Fires if activiation field
                 current = currentPlayer.getSpace();
                 if(current != null && current.getActions().size() != 0){
                     current.getActions().get(0).doAction(this,current);
