@@ -32,10 +32,7 @@ import java.util.List;
  *
  */
 
-//************************* OPGAVE V3 *************************//
 public enum Command {
-
-    // This is a very simplistic way of realizing different commands.
 
     FORWARD("Fwd"),
     RIGHT("Turn Right"),
@@ -46,13 +43,6 @@ public enum Command {
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     public String displayName;
-
-    // XXX Assignment V3
-    // Command(String displayName) {
-    //     this.displayName = displayName;
-    // }
-    //
-    // replaced by the code below:
 
     final private List<Command> options;
 
@@ -70,28 +60,5 @@ public enum Command {
     }
 
 }
-//************************* OPGAVE V3 *************************//
 
-
-
-//************************* Gamle Command *************************//
-/*
-public enum Command {
-
-    // This is a very simplistic way of realizing different commands.
-
-    FORWARD("Fwd"),
-    RIGHT("Turn Right"),
-    LEFT("Turn Left"),
-    FAST_FORWARD("Fast Fwd");
-
-    final public String displayName;
-
-    Command(String displayName) {
-        this.displayName = displayName;
-    }
-
-}
-*/
-//************************* Gamle Command *************************//
 

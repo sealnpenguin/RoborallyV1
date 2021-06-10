@@ -31,6 +31,7 @@ public enum Heading {
 
     SOUTH, WEST, NORTH, EAST;
 
+    // i don't think we use these two functions. If we want to turn a player we just call east or west.
     public Heading next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
