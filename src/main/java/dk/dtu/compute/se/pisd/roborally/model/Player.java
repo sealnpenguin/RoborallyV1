@@ -48,6 +48,7 @@ public class Player extends Subject {
     private String name;
     private String color;
     private int recentCheckpoint;
+    Boolean hasFinished;
 
     private String CardsNumber;
     private Space space;
@@ -60,6 +61,7 @@ public class Player extends Subject {
         this.board = board;
         this.name = name;
         this.color = color;
+        this.hasFinished = false;
         int checkPointStatus = 0;
 
         this.space = null;
@@ -151,6 +153,15 @@ public class Player extends Subject {
 
     public CommandCardField getCardField(int i) {
         return cards[i];
+    }
+
+    public void sethasFinished(){
+        this.hasFinished = true;
+    }
+
+    public Boolean gethasFinished(){
+        return this.hasFinished;
+
     }
 
     public String CreateCardsNumber(){

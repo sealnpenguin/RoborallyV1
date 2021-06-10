@@ -44,8 +44,9 @@ public class GameController {
 
     private List<Space> startingSpot = new ArrayList<>();
     private List<Integer> startSpotInt = new ArrayList<>();
-     public Board board;
+    public Board board;
     public Space RebootToken;
+    private  int amountFinished = 1;
 
 
     public GameController(@NotNull Board board) {
@@ -209,6 +210,7 @@ public class GameController {
         do {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
+
     }
 
 
@@ -235,7 +237,9 @@ public class GameController {
                 //  Fires if activiation field
                 current = currentPlayer.getSpace();
                 if(current != null && current.getActions().size() != 0){
+
                     current.getActions().get(0).doAction(this,current);
+
                 }
 
                 int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
@@ -455,9 +459,17 @@ public class GameController {
     }
 
     public void winInitialisation(Player player){
-
-        Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" you won.");
+        if (amountFinished == 1){
+            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" you won.");
+            msg.showAndWait();
+        } else{
+            Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" got placed number " + amountFinished);
+            msg.showAndWait();
+        }
+        Alert msg = new Alert(Alert.AlertType.INFORMATION, "The game will continue for now, but if you want to start a new game press stop game under file");
         msg.showAndWait();
+        player.sethasFinished();
+        amountFinished++;
     }
 
 

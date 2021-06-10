@@ -59,7 +59,6 @@ public class PlayerView extends Tab implements ViewObserver {
     private Button finishButton;
     private Button executeButton;
     private Button stepButton;
-    private Button StartButton;
 
     private VBox playerInteractionPanel;
 
