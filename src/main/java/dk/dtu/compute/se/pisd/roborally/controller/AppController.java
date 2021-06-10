@@ -62,7 +62,7 @@ public class AppController implements Observer {
     final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD","EXTRA CRISPY");
 
     final private RoboRally roboRally;
-    private Board board = null;
+    private Board board;
     private BoardView boardView = null;
     private GameController gameController;
 
@@ -112,15 +112,7 @@ public class AppController implements Observer {
                 board.addPlayer(player);
             }
 
-            for (int i = 0; i <board.width; i++) {
-                for (int j = 0; j < board.height; j++) {
-                    for (int k = 0; k < board.getSpace(i, j).getActions().size(); k++) {
-                        if(board.getSpace(i, j).getActions().get(k).getClass().toString().contains("CheckPoint2")){
-                            board.countupcheckpoint();
-                        }
-                    }
-                }
-            }
+            countUpCheckPoints();
             gameController.startProgrammingPhase();
             roboRally.createBoardView(gameController);
             gameController.selectStartPosition();
@@ -168,18 +160,20 @@ public class AppController implements Observer {
                 System.out.println(LOAD_OPTIONS.indexOf(loadDialog.getResult()) + " Loader denne save");
                 gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(LOAD_OPTIONS.indexOf(loadDialog.getResult())));
                 roboRally.createBoardView(gameController);
+                 board = gameController.board;
             }
             catch(Exception e) {
                 System.out.println("No saved game! Try a new one.");
                 e.printStackTrace();
                 newGame();
             }
-
+            countUpCheckPoints();
 
         } else {
             //System.out.println(RepositoryAccess.getRepository().getGames());
             //RepositoryAccess.getRepository().loadGameFromDB(0);
         }
+
     }
 
     /**
@@ -236,7 +230,18 @@ public class AppController implements Observer {
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
-        //System.out.println("update");
+    }
+
+    public void countUpCheckPoints(){
+        for (int i = 0; i <board.width; i++) {
+            for (int j = 0; j < board.height; j++) {
+                for (int k = 0; k < board.getSpace(i, j).getActions().size(); k++) {
+                    if(board.getSpace(i, j).getActions().get(k).getClass().toString().contains("CheckPoint2")){
+                        board.countupcheckpoint();
+                    }
+                }
+            }
+        }
     }
 
 }
