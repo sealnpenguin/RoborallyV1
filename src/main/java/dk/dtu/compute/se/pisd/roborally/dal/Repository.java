@@ -63,6 +63,8 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_HEADING = "heading";
 
+	private static final String PLAYER_RECENTCHECKPOINT = " recentCheckpoint";
+
 	private Connector connector;
 	
 	Repository(Connector connector){
@@ -295,6 +297,7 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateString(PLAYER_PLAYERCARDS, player.CreateCardsNumber());
+			rs.updateInt(PLAYER_RECENTCHECKPOINT, player.getRecentCheckpoint());
 			rs.insertRow();
 		}
 
