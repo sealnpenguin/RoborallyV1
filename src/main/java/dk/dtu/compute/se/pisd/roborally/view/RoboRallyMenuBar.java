@@ -46,6 +46,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem stopGame;
 
+    private MenuItem startNewGame;
+
     private MenuItem exitApp;
 
     public RoboRallyMenuBar(AppController appController) {

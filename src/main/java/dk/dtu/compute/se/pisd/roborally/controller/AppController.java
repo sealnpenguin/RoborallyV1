@@ -34,6 +34,7 @@ import dk.dtu.compute.se.pisd.roborally.model.CheckPoint2;
 import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -61,7 +62,8 @@ public class AppController implements Observer {
     final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD","EXTRA CRISPY");
 
     final private RoboRally roboRally;
-
+    private Board board = null;
+    private BoardView boardView = null;
     private GameController gameController;
 
     //RepositoryAccess iRepository;
@@ -70,6 +72,9 @@ public class AppController implements Observer {
     }
 
     public void newGame() {
+        this.board = null;
+        this.boardView = null;
+        this.gameController = null;
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
@@ -201,6 +206,7 @@ public class AppController implements Observer {
         }
         return false;
     }
+
 
     /**
      * Option to exit the game

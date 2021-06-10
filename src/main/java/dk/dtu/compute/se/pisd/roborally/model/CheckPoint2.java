@@ -3,6 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import javafx.scene.control.Dialog;
 
 
 /**
@@ -33,6 +34,8 @@ public class CheckPoint2 extends FieldAction {
             player.RecentCheckpoint(this.n);
             if (player.getRecentCheckpoint() == gameController.board.getTotalCheckpoints()){
                 System.out.println("You win");
+                gameController.winInitialisation(player);
+
             }
             System.out.println(n);
         }

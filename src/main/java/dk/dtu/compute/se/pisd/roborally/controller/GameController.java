@@ -21,7 +21,11 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.view.BoardView;
+import dk.dtu.compute.se.pisd.roborally.view.RoboRallyMenuBar;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceDialog;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,8 +44,10 @@ public class GameController {
 
     private List<Space> startingSpot = new ArrayList<>();
     private List<Integer> startSpotInt = new ArrayList<>();
-    final public Board board;
+     public Board board;
     public Space RebootToken;
+
+
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -399,6 +405,10 @@ public class GameController {
      */
     public void fastForward(@NotNull Player player) {
         moveForward(player, player.getHeading());
+        // Execute if player step on a field action before they do next step.
+        for (FieldAction action : player.getSpace().getActions()){
+            action.doAction(this, player.getSpace());
+        }
         moveForward(player, player.getHeading());
     }
 
@@ -444,6 +454,13 @@ public class GameController {
         }
     }
 
+    public void winInitialisation(Player player){
+
+        Alert msg = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" you won.");
+        msg.showAndWait();
+    }
+
+
     /**
      * A method called when no corresponding controller operation is implemented yet. This
      * should eventually be removed.
@@ -452,5 +469,7 @@ public class GameController {
         // XXX just for now to indicate that the actual method is not yet implemented
         assert false;
     }
+
+
 
 }
