@@ -105,7 +105,6 @@ public class AppController implements Observer {
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                //player.setSpace(board.getSpace(i % board.width, i));
             }
 
             for (int i = 0; i <board.width; i++) {
@@ -120,20 +119,16 @@ public class AppController implements Observer {
                 }
 
             }
-            // XXX: V2
-            // board.setCurrentPlayer(board.getPlayer(0));
-
             gameController.startProgrammingPhase();
             roboRally.createBoardView(gameController);
             gameController.selectStartPosition();
-            //board.setPhase(Phase.STARTUP);
-
-
-
         }
     }
 
-
+    /**
+     * Saves the game state and map into the local database.
+     * Requries a database to work.
+     */
 
     public void saveGame() {
         // XXX needs to be implemented eventually
@@ -154,7 +149,9 @@ public class AppController implements Observer {
         }
     }
 
-
+    /**
+     * LoadGame gets the saved games from the local database.
+     */
     public void loadGame() {
         // Anne Sophie - Can only load the first six saved games (hardcoded)
         if (gameController == null) {
@@ -205,6 +202,10 @@ public class AppController implements Observer {
         return false;
     }
 
+    /**
+     * Option to exit the game
+     * It will always ask the user if they want to save the game if they choose "ok" to exiting the game.
+     */
     public void exit() {
         if (gameController != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
