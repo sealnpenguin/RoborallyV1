@@ -174,19 +174,19 @@ public class Player extends Subject {
             if(getCardField(i).getCard() == null){
                 values.add(0);
             }
-            else if(getCardField(i).getCard().getName() == "Fwd"){
+            else if(getCardField(i).getCard().getName().equals("Fwd")){
                 values.add(1);
             }
-            else if(getCardField(i).getCard().getName() == "Turn Right"){
+            else if(getCardField(i).getCard().getName().equals("Turn Right")){
                 values.add(2);
             }
-            else if(getCardField(i).getCard().getName() == "Turn Left"){
+            else if(getCardField(i).getCard().getName().equals("Turn Left")){
                 values.add(3);
             }
-            else if(getCardField(i).getCard().getName() == "Fast Fwd"){
+            else if(getCardField(i).getCard().getName().equals("Fast Fwd")){
                 values.add(4);
             }
-            else if(getCardField(i).getCard().getName() == "Left OR Right"){
+            else if(getCardField(i).getCard().getName().equals("Left OR Right")){
                 values.add(5);
             }
         }
@@ -194,7 +194,6 @@ public class Player extends Subject {
         CardsNumber = CardsNumber.replace("[", "");
         CardsNumber = CardsNumber.replace("]", "");
         CardsNumber = CardsNumber.replace(", ", "");
-        //System.out.println(CardsNumber + " Gemmer dette ");
         return CardsNumber;
     }
 

@@ -59,7 +59,7 @@ public class AppController implements Observer {
     final private List<String> LOAD_OPTIONS = new ArrayList<>();
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-    final private List<String> Map_OPTIONS =Arrays.asList("defaultboard", "NYBOARD","EXTRA CRISPY");
+    final private List<String> Map_OPTIONS =Arrays.asList(/*"defaultboard",*/ "NYBOARD","EXTRA CRISPY");
 
     final private RoboRally roboRally;
     private Board board;
@@ -88,11 +88,7 @@ public class AppController implements Observer {
                     return;
                 }
             }
-
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
-            /* choose board */
-            ChoiceDialog<String> mapDialog = new ChoiceDialog<String>(Map_OPTIONS.get(2), Map_OPTIONS);
+            ChoiceDialog<String> mapDialog = new ChoiceDialog<String>(Map_OPTIONS.get(1), Map_OPTIONS);
             mapDialog.setTitle("Maps");
             mapDialog.setHeaderText("Select a map");
              mapDialog.showAndWait(); //necessary .showAndWait() to get result
@@ -119,13 +115,12 @@ public class AppController implements Observer {
     /**
      * Saves the game state and map into the local database.
      * Requries a database to work.
+     * If the game has been saved before, it will be saved by the same gameID (same place)
      */
 
     public void saveGame() {
-        //Anne Sophie - If the game has been saved before, it will be saved by the same gameID (same place)
         try {
             RepositoryAccess.getRepository().updateGameInDB(gameController.board);
-            LoadBoard.saveBoard(gameController.board,gameController.board.getBoardName());
             System.out.println("Updating save");
         } catch (Exception e) {
             TextInputDialog td = new TextInputDialog("Name your save");
@@ -133,7 +128,6 @@ public class AppController implements Observer {
             String filename = td.getResult();
             filename += " (" + gameController.board.getBoardName() + ")";
             RepositoryAccess.getRepository().createGameInDB(gameController.board, filename);
-            LoadBoard.saveBoard(gameController.board,filename);
             System.out.println("Saving");
         }
     }
@@ -143,31 +137,31 @@ public class AppController implements Observer {
      */
     public void loadGame() {
         if (gameController == null) {
+            LOAD_OPTIONS.clear();
             for (int i = 0; i < RepositoryAccess.getRepository().getGames().size(); i++) {
                 LOAD_OPTIONS.add(i+": " + RepositoryAccess.getRepository().getGames().get(i).name);
             }
-            ChoiceDialog<String> loadDialog = new ChoiceDialog<String>(LOAD_OPTIONS.get(0), LOAD_OPTIONS);
+            ChoiceDialog<String> loadDialog = new ChoiceDialog<String>(LOAD_OPTIONS.get(LOAD_OPTIONS.size()-1), LOAD_OPTIONS);
             loadDialog.setTitle("Saved games");
             loadDialog.setHeaderText("Select saved game");
             Optional<String> result = loadDialog.showAndWait(); //necessary .showAndWait() to get result
             try {
-                System.out.println(LOAD_OPTIONS.indexOf(loadDialog.getResult()) + " Loader denne save");
                 gameController = new GameController(RepositoryAccess.getRepository().loadGameFromDB(LOAD_OPTIONS.indexOf(loadDialog.getResult())));
                 roboRally.createBoardView(gameController);
-                 board = gameController.board;
+                board = gameController.board;
+                countUpCheckPoints();
+                System.out.println(LOAD_OPTIONS.indexOf(loadDialog.getResult()) + " Loading this save");
             }
             catch(Exception e) {
-                System.out.println("No saved game! Try a new one.");
-                e.printStackTrace();
-                newGame();
+                System.out.println("No save selected");
+                //System.out.println("No saved game! Try a new one.");
+                //e.printStackTrace();
+                //newGame();
             }
-            countUpCheckPoints();
-
         } else {
-            //System.out.println(RepositoryAccess.getRepository().getGames());
-            //RepositoryAccess.getRepository().loadGameFromDB(0);
+            gameController = null;
+            loadGame();
         }
-
     }
 
     /**
