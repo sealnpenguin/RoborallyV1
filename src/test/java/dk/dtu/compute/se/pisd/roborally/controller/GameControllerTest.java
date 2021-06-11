@@ -114,7 +114,7 @@ class GameControllerTest {
         Player player1 = gameController.board.getPlayer(0);
         player1.setSpace(board.getSpace(4,5));
         Assertions.assertEquals(board.getSpace(4,5), player1.getSpace());
-        gameController.moveCurrentPlayerToSpace(board.getSpace(4,7));
+        gameController.movePlayerToSpace(board.getSpace(4,7), player1);
         Assertions.assertEquals(board.getSpace(4,7), player1.getSpace());
     }
     @Test
