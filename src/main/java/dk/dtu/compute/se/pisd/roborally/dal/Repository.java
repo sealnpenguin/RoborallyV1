@@ -265,7 +265,6 @@ class Repository implements IRepository {
 		return result;		
 	}
 	private void createPlayersInDB(Board game) throws SQLException {
-		// TODO code should be more defensive
 		PreparedStatement ps = getSelectPlayersStatementU();
 		ps.setInt(1, game.getGameId());
 		

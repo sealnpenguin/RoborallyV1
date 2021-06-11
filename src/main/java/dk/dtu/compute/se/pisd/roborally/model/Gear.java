@@ -1,7 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 /**
  * This class holds the information of what happens when a player lands on a gear-field.
