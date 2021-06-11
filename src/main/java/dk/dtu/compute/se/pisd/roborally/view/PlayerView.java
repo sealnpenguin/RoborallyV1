@@ -22,7 +22,6 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
@@ -211,26 +210,7 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    // TODO Assignment V3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
-
-                    /*
-                    Button optionButton = new Button("Option1");
-
-                    optionButton.setOnAction( e -> gameController.notImplemented());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
-
-                    optionButton = new Button("Option 2");
-
-                    optionButton.setOnAction( e -> gameController.notImplemented());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
-                    */
-
-                    CommandCardField field = player.getProgramField(player.board.getStep()); //programfield som spilleren er i
+                    CommandCardField field = player.getProgramField(player.board.getStep());
                     if (field != null){
                         CommandCard card = field.getCard();
                         if (card != null){

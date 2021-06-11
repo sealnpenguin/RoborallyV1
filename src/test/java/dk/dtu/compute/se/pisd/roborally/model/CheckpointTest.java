@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * @author Martin Koch, s182935@student.dtu.dk
+ */
 public class CheckpointTest {
     Board board = new Board(8,8);
     GameController gameController = new GameController(board);

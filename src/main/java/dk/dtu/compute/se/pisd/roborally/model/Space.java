@@ -30,7 +30,8 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørlev Andersen, s205417@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
  */
 public class Space extends Subject {
     /**
@@ -46,12 +47,10 @@ public class Space extends Subject {
     public final int x;
     public final int y;
 
-    public boolean hasWallNouth = false;
+    public boolean hasWallNorth = false;
     public boolean hasWallSouth = false;
     public boolean hasWallWest = false;
     public boolean hasWallEast = false;
-
-    public boolean hasCheckpoint = false;
 
     public Space(Board board, int x, int y) {
         this.board = board;
@@ -91,7 +90,7 @@ public class Space extends Subject {
         walls.add(head);
         switch(head){
             case NORTH:
-                hasWallNouth = true;
+                hasWallNorth = true;
                 break;
             case EAST:
                 hasWallEast = true;

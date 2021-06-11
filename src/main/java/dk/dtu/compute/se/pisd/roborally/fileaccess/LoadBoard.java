@@ -37,6 +37,8 @@ import java.io.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
  */
 public class LoadBoard {
 

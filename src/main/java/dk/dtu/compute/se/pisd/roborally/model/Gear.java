@@ -6,6 +6,8 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  * This class holds the information of what happens when a player lands on a gear-field.
  * The player get spun 90 degress to either left or right indicated by west and east.
  * Extends fieldAction so it is able to execute this specific field Action.
+ * @author Martin Koch, s182935@student.dtu.dk
+ *
  */
 
 public class Gear extends FieldAction {

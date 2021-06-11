@@ -2,10 +2,11 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
+/**
+ * @author Mike Patrick Nørlev Andersen, s205417@student.dtu.dk
+ * @author Sebastian  Andreas Almfort s163922@student.dtu.dk
+ */
 public class RebootToken extends FieldAction{
-
-    //public final int n;
-
     public RebootToken(){
     }
 

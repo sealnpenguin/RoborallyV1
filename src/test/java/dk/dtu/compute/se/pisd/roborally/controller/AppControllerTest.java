@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Martin Koch, s182935@student.dtu.dk
+ */
 class AppControllerTest {
     private final int TEST_WIDTH = 8;
     private final int TEST_HEIGHT = 8;

@@ -32,7 +32,9 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørlev Andersen, s205417@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
+ * @author Lucas Arleth Lykke ,s205447@student.dtu.dk
  */
 public class Player extends Subject {
     /**

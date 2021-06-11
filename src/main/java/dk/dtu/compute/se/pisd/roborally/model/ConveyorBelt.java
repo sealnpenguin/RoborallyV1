@@ -28,7 +28,8 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Sebastian  Andreas Almfort s163922@student.dtu.dk
  */
 public class ConveyorBelt extends FieldAction {
 

@@ -8,7 +8,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  * Class to create checkpoints from 1 to x. When maximum checkpoint is reached by the game ends.
  * checkpoints are placed on the board.
  * Extends fieldAction so it is able to execute this specific field Action.
- *
+ * @author Martin Koch, s182935@student.dtu.dk
  */
 
 public class CheckPoint2 extends FieldAction {
@@ -23,7 +23,7 @@ public class CheckPoint2 extends FieldAction {
      * When the player reaches the maximum checkpoints they get announced as winner of the game.
      * @param gameController the gameController of the respective game
      * @param space The space of the given checkpoint
-     * @return
+     * @return returns true after the action is done.
      */
     @Override
     public boolean doAction(GameController gameController, Space space) {

@@ -23,7 +23,6 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,7 +37,9 @@ import org.jetbrains.annotations.NotNull;
  * ...
  * Handles GUI stuff for the Space class
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Sebastian  Andreas Almfort s163922@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
@@ -51,16 +52,10 @@ public class SpaceView extends StackPane implements ViewObserver {
     public final Space space;
 
     Image[] imageArr;
-    //Image variables
-    //BufferedImage conImage,conImageLeft,conImageRight,conImageDown,gearImageLeft,gearImageRight,PitImage,RebootTokenImage,backgroundImage;
-    //BufferedImage StartField0,StartField1,StartField2,StartField3,StartField4,StartField5;
-
-    //Image conveyorUp, conveyorLeft, conveyorRight, conveyorDown, gearLeft, gearRight, RebootToken, Pit, StartField0s, StartField1s, StartField2s, StartField3s, StartField4s, StartField5s;
 
     public SpaceView(@NotNull Space space, Image[] images) {
         this.space = space;
         imageArr = images.clone();
-        //System.out.println(imageArr);
         // XXX the following styling should better be done with styles
         this.setPrefWidth(SPACE_WIDTH);
         this.setMinWidth(SPACE_WIDTH);
@@ -186,7 +181,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     switch (typeOfDrawing) {
                         case "wall":
                             gc.strokeLine(60, 2, 0, 0);
-                            space.hasWallNouth = true;
+                            space.hasWallNorth = true;
                             break;
                         case "circle":
                             checkpointNum = ((CheckPoint2) space.getActions().get(0)).n;

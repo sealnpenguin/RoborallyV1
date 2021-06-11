@@ -3,7 +3,11 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
-
+/**
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
+ * @author Sebastian  Andreas Almfort s163922@student.dtu.dk
+ */
 public class Pit extends FieldAction{
 
     private Heading heading = Heading.NORTH;

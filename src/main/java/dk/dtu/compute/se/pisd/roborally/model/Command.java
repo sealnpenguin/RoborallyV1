@@ -29,7 +29,8 @@ import java.util.List;
  * ...
  * This is some commands that  the commandcard is using
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Lucas Arleth Lykke ,s205447@student.dtu.dk
+ * @author Anne Sophie Bondegaard, s194582@student.dtu.dk
  */
 
 public enum Command {

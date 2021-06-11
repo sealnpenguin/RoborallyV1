@@ -44,7 +44,7 @@ import java.io.IOException;
  * ...
  * The visualisation of the entire board and different parts.
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
  */
 public class BoardView extends VBox implements ViewObserver {
 

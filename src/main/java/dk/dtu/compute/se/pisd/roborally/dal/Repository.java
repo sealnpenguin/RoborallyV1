@@ -33,7 +33,8 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Anne Sophie Bondegaard, s194582@student.dtu.dk
  */
 class Repository implements IRepository {
 	

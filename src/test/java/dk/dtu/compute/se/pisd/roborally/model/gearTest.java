@@ -4,7 +4,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+/**
+ * @author Martin Koch, s182935@student.dtu.dk
+ */
 public class gearTest {
     Board board = new Board(8, 8);
     GameController gameController = new GameController(board);

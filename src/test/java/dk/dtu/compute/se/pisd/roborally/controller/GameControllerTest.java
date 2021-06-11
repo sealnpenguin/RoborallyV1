@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * @author Martin Koch, s182935@student.dtu.dk
+ */
 class GameControllerTest {
 
     private final int TEST_WIDTH = 8;

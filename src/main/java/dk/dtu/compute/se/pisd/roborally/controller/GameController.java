@@ -35,7 +35,8 @@ import java.util.Optional;
  * The GameController interacts when a player do an action
  * int the GUI. It's the controlling part of the game.
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Martin Koch, s182935@student.dtu.dk
  */
 public class GameController {
 
@@ -329,24 +330,20 @@ public class GameController {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, heading);
-
             if(target != null){
                 switch(heading){
                     case NORTH:
-                        if(!current.hasWallNouth && !target.hasWallSouth){
+                        if(!current.hasWallNorth && !target.hasWallSouth){
                             pushOrMove(target,player);
                         } break;
-
                     case SOUTH:
-                        if(!current.hasWallSouth && !target.hasWallNouth){
+                        if(!current.hasWallSouth && !target.hasWallNorth){
                             pushOrMove(target,player);
                         } break;
-
                     case EAST:
                         if(!current.hasWallEast && !target.hasWallWest){
                             pushOrMove(target,player);
                         } break;
-
                     case WEST:
                         if(!current.hasWallWest && !target.hasWallEast){
                             pushOrMove(target,player);
@@ -366,7 +363,6 @@ public class GameController {
                     System.out.println("No RebootToken in this map");
                 }
             }
-
         }
     }
     /**

@@ -52,7 +52,8 @@ import java.util.*;
  * ...
  *controller that creates all the necessary things to run the RoboRally game.
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * @author Mike Patrick Nørløv Andersen, s205417@student.dtu.dk
+ * @author Anne Sophie Bondegaard, s194582@student.dtu.dk
  */
 public class AppController implements Observer {
 
@@ -66,7 +67,6 @@ public class AppController implements Observer {
     private BoardView boardView = null;
     private GameController gameController;
 
-    //RepositoryAccess iRepository;
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
