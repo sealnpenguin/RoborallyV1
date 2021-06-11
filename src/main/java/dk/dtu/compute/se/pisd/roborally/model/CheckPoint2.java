@@ -32,13 +32,13 @@ public class CheckPoint2 extends FieldAction {
             player.RecentCheckpoint(this.n);
             if (!player.gethasFinished()){
                 if (player.getRecentCheckpoint() == gameController.board.getTotalCheckpoints()){
-                    System.out.println("You win");
+                    //System.out.println("You win");
                     gameController.winInitialisation(player);
 
                 }
             }
 
-            System.out.println(n);
+            //System.out.println(n);
         }
         return true;
     }
