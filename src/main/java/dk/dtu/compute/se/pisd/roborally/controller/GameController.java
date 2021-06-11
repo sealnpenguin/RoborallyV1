@@ -57,10 +57,11 @@ public class GameController {
      * @param space the space to which the current player should move
      */
     //Testes for Pit og RebootToken
-    public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        Player player = this.board.getCurrentPlayer();
+    public void movePlayerToSpace(@NotNull Space space, Player playerToMove)  {
+        //Player player = this.board.getCurrentPlayer();
+        //System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
-            player.setSpace(space);
+            playerToMove.setSpace(space);
             board.increaseCounter();
             this.board.setCurrentPlayer(this.board.getPlayer(board.getCounter() % board.getPlayersNumber()));
             board.setCount(board.getCount() + 1);
@@ -118,7 +119,7 @@ public class GameController {
         board.setStep(0);
     }
     /**
-     * selectStartPosition gets all of available starting positions adding them to the startSpot array.
+     * Gets all of available starting positions adding them to the startSpot array.
      *Also opens dialog box where player can choose the specific starting spot
      */
     public void selectStartPosition(){
@@ -231,10 +232,11 @@ public class GameController {
                 }
 
                 //  Fires if activiation field
-                current = currentPlayer.getSpace();
-                if(current != null && current.getActions().size() != 0){
-
-                    current.getActions().get(0).doAction(this,current);
+                for (int i = 0; i < board.getPlayersNumber(); i++) {
+                    current = board.getPlayer(i).getSpace();
+                    if(current != null && current.getActions().size() != 0){
+                        current.getActions().get(0).doAction(this,current);
+                    }
 
                 }
 
@@ -332,49 +334,29 @@ public class GameController {
                 switch(heading){
                     case NORTH:
                         if(!current.hasWallNouth && !target.hasWallSouth){
-                            if(target.getPlayer() != null){
-                                moveForward(target.getPlayer(), player.getHeading());
-                            }
-                            if(target.getPlayer() == null){
-                                player.setSpace(target);
-                            }
+                            pushOrMove(target,player);
                         } break;
 
                     case SOUTH:
                         if(!current.hasWallSouth && !target.hasWallNouth){
-                            if(target.getPlayer() != null){
-                                moveForward(target.getPlayer(), player.getHeading());
-                            }
-                            if(target.getPlayer() == null){
-                                player.setSpace(target);
-                            }
+                            pushOrMove(target,player);
                         } break;
 
                     case EAST:
                         if(!current.hasWallEast && !target.hasWallWest){
-                            if(target.getPlayer() != null){
-                                moveForward(target.getPlayer(), player.getHeading());
-                            }
-                            if(target.getPlayer() == null){
-                                player.setSpace(target);
-                            }
+                            pushOrMove(target,player);
                         } break;
 
                     case WEST:
                         if(!current.hasWallWest && !target.hasWallEast){
-                            if(target.getPlayer() != null){
-                                moveForward(target.getPlayer(), player.getHeading());
-                            }
-                            if(target.getPlayer() == null){
-                                player.setSpace(target);
-                            }
+                            pushOrMove(target,player);
                         } break;
                 }
             } else {
                 try {
                     if (RebootToken.getPlayer() != null) {
                         pushPlayer(RebootToken.getPlayer(), RebootToken.getPlayer().getHeading());
-                        moveCurrentPlayerToSpace(RebootToken);
+                        movePlayerToSpace(RebootToken, player);
                         ((RebootToken) RebootToken.getActions().get(0)).destoyProgrammingCards(RebootToken.getPlayer());
                     } else {
                         current.getPlayer().setSpace(RebootToken);
@@ -399,6 +381,20 @@ public class GameController {
     }
 
     /**
+     * If a player exists on the field the current player is trying to move to then we move him before moving the current player.
+     * @param target the space to move to
+     * @param player current player who needs to move
+     */
+    private void pushOrMove(Space target, Player player){
+        if(target.getPlayer() != null){
+            moveForward(target.getPlayer(), player.getHeading());
+        }
+        if(target.getPlayer() == null){
+            player.setSpace(target);
+        }
+    }
+
+    /**
      * Calls the moveforward function twice.
      * @param player - player to move.
      *
@@ -406,9 +402,9 @@ public class GameController {
     public void fastForward(@NotNull Player player) {
         moveForward(player, player.getHeading());
         // Execute if player step on a field action before they do next step.
-        for (FieldAction action : player.getSpace().getActions()){
+        /*for (FieldAction action : player.getSpace().getActions()){
             action.doAction(this, player.getSpace());
-        }
+        }*/
         moveForward(player, player.getHeading());
     }
 
