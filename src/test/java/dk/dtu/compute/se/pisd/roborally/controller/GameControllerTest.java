@@ -1,11 +1,9 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import com.mysql.cj.protocol.x.XMessage;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
-import dk.dtu.compute.se.pisd.roborally.model.Gear;
+import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.view.PlayerView;
+import javafx.scene.control.Button;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,6 +108,41 @@ class GameControllerTest {
         Assertions.assertEquals(player2, board.getSpace(3,2).getPlayer(), player2.getName() + " should be at space (3,2)!" + player2.getName() + " is at " +  playerCoord.x + "," + playerCoord.y);
 
     }
+    @Test
+    public void moveCurrentPlayerToSpaceTest(){
+        Board board = gameController.board;
+        Player player1 = gameController.board.getPlayer(0);
+        player1.setSpace(board.getSpace(4,5));
+        Assertions.assertEquals(board.getSpace(4,5), player1.getSpace());
+        gameController.moveCurrentPlayerToSpace(board.getSpace(4,7));
+        Assertions.assertEquals(board.getSpace(4,7), player1.getSpace());
+    }
+    @Test
+    public void differentPhasesTest(){
+        Board board = gameController.board;
+        Player player1 = gameController.board.getPlayer(0);
+        player1.setHeading(Heading.SOUTH);
+        player1.setSpace(board.getSpace(2, 4));
+        gameController.board.setPhase(Phase.INITIALISATION);
+        Assertions.assertEquals("INITIALISATION", gameController.board.getPhase().toString());
+        gameController.startProgrammingPhase();
+        Assertions.assertEquals("PROGRAMMING", gameController.board.getPhase().toString());
+        gameController.finishProgrammingPhase();
+        Assertions.assertEquals("ACTIVATION", gameController.board.getPhase().toString());
+        //should test the last phase but we need to set a variable for player for it to work
+        player1.getProgramField(0).setCard(new CommandCard(Command.OPTION_LEFT_RIGHT));
+        gameController.executeStep();
+        Assertions.assertEquals("PLAYER_INTERACTION", gameController.board.getPhase().toString());
+        board.setPhase(Phase.ACTIVATION);
+
+        player1.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
+        board.getSpace(2,5).getActions().add(new CheckPoint2(1));
+        gameController.executeStep();
+
+
+    }
+
+
     @Test
     public void Gear(){
         Board board = gameController.board;

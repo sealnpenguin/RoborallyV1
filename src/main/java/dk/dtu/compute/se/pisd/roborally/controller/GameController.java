@@ -59,7 +59,6 @@ public class GameController {
     //Testes for Pit og RebootToken
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
         Player player = this.board.getCurrentPlayer();
-        //System.out.println(space.getPlayer());
         if(space.getPlayer() == null) {
             player.setSpace(space);
             board.increaseCounter();
@@ -346,7 +345,7 @@ public class GameController {
                             if(target.getPlayer() != null){
                                 moveForward(target.getPlayer(), player.getHeading());
                             }
-                            else if(target.getPlayer() == null){
+                            if(target.getPlayer() == null){
                                 player.setSpace(target);
                             }
                         } break;
